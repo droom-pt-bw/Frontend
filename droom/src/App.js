@@ -14,7 +14,7 @@ function App() {
           <Route path="/login" component={Login} />
           <Route path="/profileform" component={UserProfile} />
           <Route path="*" component={NotFound}/>
-        </Switch>
+        </Switch> 
       </Router>
     </div>
   );
