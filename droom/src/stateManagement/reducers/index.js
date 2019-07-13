@@ -1,4 +1,4 @@
-import { LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT, LISTINGS_REQUEST, LISTINGS_SUCCESS, LISTINGS_FAILURE } from '../actions/types';
+import { LISTINGS_REQUEST, LISTINGS_SUCCESS, LISTINGS_FAILURE } from '../actions/types';
 import { userConstants } from '../actions/registrationTypes';
 
 const initialState = {
@@ -8,7 +8,9 @@ const initialState = {
   matches: [],
 
   currentUser: null,
+  loginRequested: false,
   loginFailed: false,
+  loginError: null,
 
   fetchingUsers: false,
   fetchUsersError: null,
@@ -19,23 +21,34 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case LOGIN_SUCCESS:
+    case userConstants.LOGIN_REQUEST:
+      return {
+        ...state,
+        loginRequested: true,
+        loginFailed: false,
+        loginError: null
+      };
+    case userConstants.LOGIN_SUCCESS:
       return {
         ...state,
         currentUser: action.payload,
-        loginFailed: false
+        loginRequested: false,
+        loginFailed: false,
+        loginError: null
       }
-    case LOGIN_FAIL:
+    case userConstants.LOGIN_FAILURE:
       return {
         ...state,
         currentUser: null,
-        loginFailed: true
+        loginFailed: true,
+        loginError: action.payload
       }
-    case LOGOUT:
+    case userConstants.LOGOUT:
       return {
         ...state,
         currentUser: null,
-        loginFailed: false
+        loginFailed: false,
+        loginError: null
       }
     case userConstants.GETALL_REQUEST:
       return {
