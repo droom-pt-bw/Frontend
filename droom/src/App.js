@@ -6,12 +6,14 @@ import Login from './Components/Forms/LoginForm';
 import UserProfile from './Components/Forms/userProfile';
 import NotFound from './Components/NotFound/NotFound';
 import RegisterForm from './Components/Forms/RegisterForm';
+import Home from './Components/HomePage/Home';
 
 function App() {
   return (
     <div className="App">
       <Router>
         <Switch>
+          <Route path="/" exact component={Home}/>
           <Route path="/login" component={Login} />
           <Route path="/profileform" component={UserProfile} />
           <Route path="/register" component={RegisterForm}/>

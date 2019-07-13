@@ -1,4 +1,5 @@
 import { LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT } from '../actions/types';
+import { userConstants } from '../actions/registrationTypes';
 
 const initialState = {
   users: {
@@ -27,7 +28,9 @@ const initialState = {
   },
   matches: [],
   currentUser: null,
-  loginFailed: false
+  loginFailed: false,
+  fetchingUsers: false,
+  fetchUsersError: null
 };
 
 export default (state = initialState, action) => {
@@ -49,6 +52,18 @@ export default (state = initialState, action) => {
         ...state,
         currentUser: null,
         loginFailed: false
+      }
+    case userConstants.GETALL_REQUEST:
+      return {
+        ...state,
+        fetchingUsers: true
+      };
+    case userConstants.GETALL_SUCCESS:
+      return {
+        ...state,
+        fetchingUsers: false,
+        fetchUsersError: null,
+        users: action.payload
       }
     default:
       return state;
