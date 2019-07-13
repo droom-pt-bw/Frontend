@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 import { LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT } from './types';
 import store from '../index';
 
@@ -15,4 +17,11 @@ export const loginLocal = (username, password) => {
 
 export const logoutLocal = () => {
   return { type: LOGOUT };
+};
+
+export const register = user => dispatch => {
+  axios.post('https://droom-pt-bw.herokuapp.com/register', user) //getting a 404?
+    .then(res => {
+      console.log(res);
+    });
 };
