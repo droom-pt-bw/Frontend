@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { loginLocal, logoutLocal } from '../../stateManagement/actions';
+import { login, logout } from '../../stateManagement/actions';
 
-const LoginForm = ({ currentUser, loginFailed, loginLocal, logoutLocal }) => {
+const LoginForm = ({ currentUser, loginFailed, login, logout }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
   const signIn = (e) => {
     e.preventDefault();
-    loginLocal(username, password);
+    login(username, password);
+
     setUsername('');
     setPassword('');
   };
@@ -41,7 +42,7 @@ const LoginForm = ({ currentUser, loginFailed, loginLocal, logoutLocal }) => {
         />
         <input type="submit" value="Sign In" />
       </form>
-      {currentUser && <button onClick={logoutLocal}>Sign Out</button>}
+      {currentUser && <button onClick={logout}>Sign Out</button>}
     </div>
   );
 };
@@ -53,4 +54,4 @@ const mapStateToProps = ({ currentUser, loginFailed }) => {
   }
 };
 
-export default connect(mapStateToProps, { loginLocal, logoutLocal })(LoginForm);
+export default connect(mapStateToProps, { login, logout })(LoginForm);

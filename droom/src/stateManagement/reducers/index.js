@@ -6,7 +6,7 @@ const initialState = {
   listings: {},
 
   matches: [],
-  
+
   currentUser: null,
   loginFailed: false,
 
