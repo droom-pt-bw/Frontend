@@ -1,3 +1,7 @@
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAIL = 'LOGIN_FAIL';
 export const LOGOUT = 'LOGOUT';
+
+export const LISTINGS_REQUEST = 'LISTINGS_REQUEST';
+export const LISTINGS_SUCCESS = 'LISTINGS_SUCCESS';
+export const LISTINGS_FAILURE = 'LISTINGS_FAILURE';

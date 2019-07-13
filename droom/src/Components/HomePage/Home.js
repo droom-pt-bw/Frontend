@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { getUsers } from '../../stateManagement/actions';
+import { getUsers, getListings } from '../../stateManagement/actions';
 
-const Home = ({ getUsers }) => {
+const Home = ({ getUsers, getListings }) => {
   useEffect(() => {
     getUsers();
-  }, [getUsers]);
+    getListings();
+  }, [getUsers, getListings]);
 
   return (
     <div>
@@ -20,4 +21,4 @@ const mapStateToProps = () => {
   };
 };
 
-export default connect(mapStateToProps, { getUsers })(Home);
+export default connect(mapStateToProps, { getUsers, getListings })(Home);

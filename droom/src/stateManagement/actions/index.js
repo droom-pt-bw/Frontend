@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT } from './types';
+import { LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT, LISTINGS_REQUEST, LISTINGS_SUCCESS, LISTINGS_FAILURE } from './types';
 import { userConstants } from './registrationTypes';
 import store from '../index';
 import { arrayToObj } from '../../utils/helpers';
@@ -37,5 +37,17 @@ export const getUsers = () => dispatch => {
     })
     .catch(err => {
       dispatch({ type: userConstants.GETALL_FAILURE, payload: err });
+    });
+};
+
+export const getListings = () => dispatch => {
+  dispatch({ type: LISTINGS_REQUEST });
+
+  axios.get('https://droom-pt-bw.herokuapp.com/listings')
+    .then(res => {
+      dispatch({ type: LISTINGS_SUCCESS, payload: arrayToObj(res.data) });
+    })
+    .catch(err => {
+      dispatch({ type: LISTINGS_FAILURE, payload: err });
     });
 };

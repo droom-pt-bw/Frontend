@@ -1,4 +1,4 @@
-import { LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT } from '../actions/types';
+import { LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT, LISTINGS_REQUEST, LISTINGS_SUCCESS, LISTINGS_FAILURE } from '../actions/types';
 import { userConstants } from '../actions/registrationTypes';
 
 const initialState = {
@@ -29,8 +29,12 @@ const initialState = {
   matches: [],
   currentUser: null,
   loginFailed: false,
+
   fetchingUsers: false,
-  fetchUsersError: null
+  fetchUsersError: null,
+
+  fetchingListings: false,
+  fetchListingsError: null
 };
 
 export default (state = initialState, action) => {
@@ -64,7 +68,31 @@ export default (state = initialState, action) => {
         fetchingUsers: false,
         fetchUsersError: null,
         users: action.payload
-      }
+      };
+    case userConstants.GETALL_FAILURE:
+      return {
+        ...state,
+        fetchingUsers: false,
+        fetchUsersError: action.payload
+      };
+    case LISTINGS_REQUEST:
+      return {
+        ...state,
+        fetchingListing: true
+      };
+    case LISTINGS_SUCCESS:
+      return {
+        ...state,
+        fetchingListings: false,
+        fetchListingsErrors: null,
+        listings: action.payload
+      };
+    case LISTINGS_FAILURE:
+      return {
+        ...state,
+        fetchingListings: false,
+        fetchListingsError: action.payload
+      };
     default:
       return state;
   };
