@@ -1,4 +1,13 @@
-import { LISTINGS_REQUEST, LISTINGS_SUCCESS, LISTINGS_FAILURE, ALREADY_LOGGED_IN, NOT_YET_LOGGED_IN } from '../actions/types';
+import { 
+  LISTINGS_REQUEST,
+  LISTINGS_SUCCESS,
+  LISTINGS_FAILURE,
+  ALREADY_LOGGED_IN,
+  NOT_YET_LOGGED_IN,
+  REGISTER_REQUESTED,
+  REGISTER_SUCCESSFUL,
+  REGISTER_FAILURE
+} from '../actions/types';
 import { userConstants } from '../actions/registrationTypes';
 
 const initialState = {
@@ -16,7 +25,10 @@ const initialState = {
   fetchUsersError: null,
 
   fetchingListings: false,
-  fetchListingsError: null
+  fetchListingsError: null,
+
+  registerRequested: false,
+  registerError: null
 };
 
 export default (state = initialState, action) => {
@@ -105,6 +117,23 @@ export default (state = initialState, action) => {
         ...state,
         currentUser: null
       };
+    case REGISTER_REQUESTED:
+      return {
+        ...state,
+        registerRequested: true
+      };
+    case REGISTER_SUCCESSFUL:
+      return {
+        ...state,
+        registerRequested: false,
+        registerError: null
+      };
+    case REGISTER_FAILURE:
+      return {
+        ...state,
+        registerRequested: false,
+        registerError: action.payload
+      }
     default:
       return state;
   };
