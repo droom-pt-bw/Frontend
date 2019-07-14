@@ -10,7 +10,8 @@ import {
   NOT_YET_LOGGED_IN, 
   REGISTER_REQUESTED,
   REGISTER_SUCCESSFUL,
-  REGISTER_FAILURE
+  REGISTER_FAILURE,
+  ADD_LISTING_SUCCESSFUL
 } from './types';
 import { userConstants } from './registrationTypes';
 import store from '../index';
@@ -96,4 +97,15 @@ const loginHelper = (username, password, dispatch) => {
     .catch(err => {
       dispatch({ type: userConstants.LOGIN_FAILURE, payload: err });
     });
-}
+};
+
+export const addListing = (listing, currentUser) => dispatch => {
+  dispatch({ 
+    type: ADD_LISTING_SUCCESSFUL,
+    payload: {
+      ...listing,
+      createdAt: Date.now(),
+      id: Date.now(),
+      company: currentUser.id }
+  });
+};

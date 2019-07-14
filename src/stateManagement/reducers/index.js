@@ -6,7 +6,8 @@ import {
   NOT_YET_LOGGED_IN,
   REGISTER_REQUESTED,
   REGISTER_SUCCESSFUL,
-  REGISTER_FAILURE
+  REGISTER_FAILURE,
+  ADD_LISTING_SUCCESSFUL
 } from '../actions/types';
 import { userConstants } from '../actions/registrationTypes';
 
@@ -134,6 +135,16 @@ export default (state = initialState, action) => {
         registerRequested: false,
         registerError: action.payload
       }
+    case ADD_LISTING_SUCCESSFUL:
+      return {
+        ...state,
+        listings: {
+          ...state.listings,
+          [action.payload.id]: {
+            ...action.payload
+          }
+        }
+      };
     default:
       return state;
   };
