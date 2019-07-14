@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { addListing } from '../../stateManagement/actions';
 
 const JobListingForm = ({ currentUser }) => {
-  const [jobtitle, setJobitle] = useState('');
+  const [jobtitle, setJobtitle] = useState('');
   const [description, setDescription] = useState('');
   const [location, setLocation] = useState('');
   const [salary, setSalary] = useState('');
@@ -24,7 +24,7 @@ const JobListingForm = ({ currentUser }) => {
       <label>Job Title</label>
       <input type="text"
         value={jobtitle}
-        onChange={e => setJobitle(e.target.value)}
+        onChange={e => setJobtitle(e.target.value)}
       />
 
       <label htmlFor="">Description</label>
