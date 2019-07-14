@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { loginLocal, logoutLocal } from '../../stateManagement/actions';
+import { Link, Redirect } from 'react-router-dom';
 
-const LoginForm = ({ currentUser, loginFailed, loginLocal, logoutLocal }) => {
+import { login, logout } from '../../stateManagement/actions';
+
+const LoginForm = ({ currentUser, loginFailed, login }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
   const signIn = (e) => {
     e.preventDefault();
-    loginLocal(username, password);
+    login(username, password);
+
     setUsername('');
     setPassword('');
   };
@@ -21,9 +24,14 @@ const LoginForm = ({ currentUser, loginFailed, loginLocal, logoutLocal }) => {
     setPassword(e.target.value);
   };
 
+  if (currentUser) {
+    return (
+      <Redirect to="/"/>
+    );
+  }
+
   return (
     <div>
-      {currentUser && <h3>Hello, {currentUser.username}</h3>}
       {loginFailed && <p>those credentials were incorrect</p>}
 
       <form onSubmit={signIn}>
@@ -41,7 +49,13 @@ const LoginForm = ({ currentUser, loginFailed, loginLocal, logoutLocal }) => {
         />
         <input type="submit" value="Sign In" />
       </form>
-      {currentUser && <button onClick={logoutLocal}>Sign Out</button>}
+      
+      <p>Not yet a member? Sign up here</p>
+      <Link to="/register">
+        <button>
+          Create Account
+        </button>
+      </Link>
     </div>
   );
 };
@@ -53,4 +67,4 @@ const mapStateToProps = ({ currentUser, loginFailed }) => {
   }
 };
 
-export default connect(mapStateToProps, { loginLocal, logoutLocal })(LoginForm);
+export default connect(mapStateToProps, { login, logout })(LoginForm);
