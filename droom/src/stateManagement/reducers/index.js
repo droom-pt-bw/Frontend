@@ -31,7 +31,7 @@ export default (state = initialState, action) => {
     case userConstants.LOGIN_SUCCESS:
       return {
         ...state,
-        currentUser: action.payload,
+        currentUser: { ...state.currentUser, ...action.payload},
         loginRequested: false,
         loginFailed: false,
         loginError: null
@@ -56,11 +56,20 @@ export default (state = initialState, action) => {
         fetchingUsers: true
       };
     case userConstants.GETALL_SUCCESS:
+
+      const user = Object.values(action.payload).find(e => e.username === state.currentUser.username);
+
       return {
         ...state,
         fetchingUsers: false,
         fetchUsersError: null,
-        users: action.payload
+        users: action.payload,
+        currentUser: {
+          ...state.currentUser,
+          id: user.id,
+          email: user.email,
+          isCompany: !!user.isCompany
+        }
       };
     case userConstants.GETALL_FAILURE:
       return {

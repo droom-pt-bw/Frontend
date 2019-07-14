@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
+
 import { login, logout } from '../../stateManagement/actions';
 
 const LoginForm = ({ currentUser, loginFailed, login, logout }) => {
@@ -22,9 +24,14 @@ const LoginForm = ({ currentUser, loginFailed, login, logout }) => {
     setPassword(e.target.value);
   };
 
+  if (currentUser) {
+    return (
+      <Redirect to="/"/>
+    );
+  }
+
   return (
     <div>
-      {currentUser && <h3>Hello, {currentUser.username}</h3>}
       {loginFailed && <p>those credentials were incorrect</p>}
 
       <form onSubmit={signIn}>
