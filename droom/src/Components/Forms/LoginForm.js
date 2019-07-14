@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 import { login, logout } from '../../stateManagement/actions';
 
-const LoginForm = ({ currentUser, loginFailed, login, logout }) => {
+const LoginForm = ({ currentUser, loginFailed, login }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
@@ -49,7 +49,13 @@ const LoginForm = ({ currentUser, loginFailed, login, logout }) => {
         />
         <input type="submit" value="Sign In" />
       </form>
-      {currentUser && <button onClick={logout}>Sign Out</button>}
+      
+      <p>Not yet a member? Sign up here</p>
+      <Link to="/register">
+        <button>
+          Create Account
+        </button>
+      </Link>
     </div>
   );
 };
