@@ -1,4 +1,4 @@
-import { LISTINGS_REQUEST, LISTINGS_SUCCESS, LISTINGS_FAILURE } from '../actions/types';
+import { LISTINGS_REQUEST, LISTINGS_SUCCESS, LISTINGS_FAILURE, ALREADY_LOGGED_IN, NOT_YET_LOGGED_IN } from '../actions/types';
 import { userConstants } from '../actions/registrationTypes';
 
 const initialState = {
@@ -94,6 +94,16 @@ export default (state = initialState, action) => {
         ...state,
         fetchingListings: false,
         fetchListingsError: action.payload
+      };
+    case ALREADY_LOGGED_IN:
+      return {
+        ...state,
+        currentUser: action.payload
+      };
+    case NOT_YET_LOGGED_IN:
+      return {
+        ...state,
+        currentUser: null
       };
     default:
       return state;

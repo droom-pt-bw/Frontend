@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import Login from './Components/Forms/LoginForm';
 import UserProfile from './Components/Forms/userProfile';
@@ -9,8 +10,13 @@ import RegisterForm from './Components/Forms/RegisterForm';
 import Home from './Components/HomePage/Home';
 import PrivateRoute from './Components/PrivateRoute';
 import Nav from './Components/Nav';
+import { checkLoggedIn } from './stateManagement/actions';
 
-function App() {
+function App ({ checkLoggedIn }) {
+  useEffect(() => {
+    checkLoggedIn();
+  }, [checkLoggedIn]);
+
   return (
     <div className="App">
       <Router>
@@ -27,4 +33,4 @@ function App() {
   );
 }
 
-export default App;
+export default connect(null, { checkLoggedIn })(App);
