@@ -7,6 +7,7 @@ import Login from './Components/Forms/LoginForm';
 import UserProfile from './Components/Forms/userProfile';
 import NotFound from './Components/NotFound/NotFound';
 import RegisterForm from './Components/Forms/RegisterForm';
+import JobListingForm from './Components/Forms/JobListingForm';
 import Home from './Components/HomePage/Home';
 import PrivateRoute from './Components/PrivateRoute';
 import Nav from './Components/Nav';
@@ -25,7 +26,8 @@ function App ({ checkLoggedIn }) {
           <PrivateRoute path="/" exact component={Home} />
           <Route path="/login" component={Login} />
           <PrivateRoute path="/profileform" component={UserProfile} />
-          <Route path="/register" component={RegisterForm}/>
+          <Route path="/register" component={RegisterForm} />
+          <PrivateRoute path="/listings/add" component={JobListingForm} />
           <Route path="*" component={NotFound} />
         </Switch> 
       </Router>

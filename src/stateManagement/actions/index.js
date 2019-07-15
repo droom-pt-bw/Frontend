@@ -99,13 +99,14 @@ const loginHelper = (username, password, dispatch) => {
     });
 };
 
-export const addListing = (listing, currentUser) => dispatch => {
-  dispatch({ 
+export const addListing = (listing, currentUser) => {
+  console.log(listing)
+  return { 
     type: ADD_LISTING_SUCCESSFUL,
     payload: {
       ...listing,
       createdAt: Date.now(),
       id: Date.now(),
       company: currentUser.id }
-  });
+  };
 };

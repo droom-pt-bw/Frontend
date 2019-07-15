@@ -134,7 +134,7 @@ export default (state = initialState, action) => {
         ...state,
         registerRequested: false,
         registerError: action.payload
-      }
+      };
     case ADD_LISTING_SUCCESSFUL:
       return {
         ...state,

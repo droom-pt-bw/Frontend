@@ -1,9 +1,10 @@
-import  React, { useState } from 'React';
+import  React, { useState } from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
 import { addListing } from '../../stateManagement/actions';
 
-const JobListingForm = ({ currentUser }) => {
+const JobListingForm = ({ currentUser, addListing }) => {
   const [jobtitle, setJobtitle] = useState('');
   const [description, setDescription] = useState('');
   const [location, setLocation] = useState('');
@@ -18,6 +19,12 @@ const JobListingForm = ({ currentUser }) => {
         salary
       }, currentUser);
   };
+
+  if (!currentUser.isCompany) {
+    return (
+      <Redirect to="/" />
+    );
+  }
 
   return(
     <form onSubmit={submit}>
