@@ -99,6 +99,7 @@ const loginHelper = (username, password, dispatch) => {
 
   axios.post('https://droom-pt-bw.herokuapp.com/login', { username, password })
     .then(res => {
+      //console.log(res);
       dispatch({ type: userConstants.LOGIN_SUCCESS, payload: { username, token: res.data.token } });
       //window.localStorage.setItem('currentUser', JSON.stringify({username, token: res.data.token}));
       storeUser(username, res.data.token);

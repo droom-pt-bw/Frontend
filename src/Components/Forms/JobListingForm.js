@@ -1,15 +1,26 @@
-import  React, { useState } from 'react';
+import  React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
 import { addListing } from '../../stateManagement/actions';
 
-const JobListingForm = ({ currentUser, addListing }) => {
+const JobListingForm = ({ currentUser, addListing, listing }) => {
   const [jobtitle, setJobtitle] = useState('');
   const [description, setDescription] = useState('');
   const [location, setLocation] = useState('');
   const [salary, setSalary] = useState('');
+
   const [submitted, setSubmitted] = useState(false);
+
+  useEffect(() => {
+    if (listing) {
+        setJobtitle(listing.jobtitle);
+        setDescription(listing.description);
+        setLocation(listing.location);
+        setSalary(listing.salary);
+      }
+  }, [listing]);
+  
 
   const submit = e => {
     e.preventDefault();
@@ -60,14 +71,15 @@ const JobListingForm = ({ currentUser, addListing }) => {
         onChange={e => setSalary(e.target.value)}
       />
 
-      <input type="submit" value="Post Listing" />
+      <input type="submit" value="Submit" />
     </form>
   );
 };
 
-const mapStateToProps = ({ currentUser }) => {
+const mapStateToProps = ({ currentUser, listings }, ownProps) => {
   return {
-    currentUser
+    currentUser,
+    listing: ownProps.match.params.id ? listings[ownProps.match.params.id] : null
   };
 };
 

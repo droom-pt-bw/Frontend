@@ -30,6 +30,7 @@ function App ({ checkLoggedIn }) {
           <Route path="/register" component={RegisterForm} />
           <PrivateRoute path="/listings" exact component={Listings} />
           <PrivateRoute path="/listings/add" component={JobListingForm} />
+          <PrivateRoute path="/listings/edit/:id" component={JobListingForm} />
           <Route path="*" component={NotFound} />
         </Switch> 
       </Router>
