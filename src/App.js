@@ -12,6 +12,7 @@ import Home from './Components/HomePage/Home';
 import PrivateRoute from './Components/PrivateRoute';
 import Nav from './Components/Nav';
 import { checkLoggedIn } from './stateManagement/actions';
+import Listings from './Components/ListingsPage/Listings';
 
 function App ({ checkLoggedIn }) {
   useEffect(() => {
@@ -27,6 +28,7 @@ function App ({ checkLoggedIn }) {
           <Route path="/login" component={Login} />
           <PrivateRoute path="/profileform" component={UserProfile} />
           <Route path="/register" component={RegisterForm} />
+          <PrivateRoute path="/listings" exact component={Listings} />
           <PrivateRoute path="/listings/add" component={JobListingForm} />
           <Route path="*" component={NotFound} />
         </Switch> 
