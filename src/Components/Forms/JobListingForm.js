@@ -9,6 +9,7 @@ const JobListingForm = ({ currentUser, addListing }) => {
   const [description, setDescription] = useState('');
   const [location, setLocation] = useState('');
   const [salary, setSalary] = useState('');
+  const [submitted, setSubmitted] = useState(false);
 
   const submit = e => {
     e.preventDefault();
@@ -18,11 +19,18 @@ const JobListingForm = ({ currentUser, addListing }) => {
         location,
         salary
       }, currentUser);
+    setSubmitted(true);
   };
 
   if (!currentUser.isCompany) {
     return (
       <Redirect to="/" />
+    );
+  }
+
+  if (submitted) {
+    return (
+      <Redirect to="/listings" />
     );
   }
 
