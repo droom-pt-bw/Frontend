@@ -15,7 +15,7 @@ import {
 } from './types';
 import { userConstants } from './registrationTypes';
 import store from '../index';
-import { arrayToObj } from '../../utils/helpers';
+import { arrayToObj, storeUser, getUserFromStorage, getTokenFromStorage } from '../../utils/helpers';
 
 export const loginLocal = (username, password) => {
   const { users } = store.getState();
@@ -55,7 +55,11 @@ export const register = user => dispatch => {
 export const getUsers = () => dispatch => {
   dispatch({ type: userConstants.GETALL_REQUEST });
 
-  axios.get('https://droom-pt-bw.herokuapp.com/users')
+  axios.get('https://droom-pt-bw.herokuapp.com/users', {
+    headers: {
+      Authorization: getTokenFromStorage()
+    }
+  })
     .then(res => {
       dispatch({ type: userConstants.GETALL_SUCCESS, payload: arrayToObj(res.data) });
     })
@@ -67,7 +71,11 @@ export const getUsers = () => dispatch => {
 export const getListings = () => dispatch => {
   dispatch({ type: LISTINGS_REQUEST });
 
-  axios.get('https://droom-pt-bw.herokuapp.com/listings')
+  axios.get('https://droom-pt-bw.herokuapp.com/listings', {
+    headers: {
+      Authorization: getTokenFromStorage()
+    }
+  })
     .then(res => {
       dispatch({ type: LISTINGS_SUCCESS, payload: arrayToObj(res.data) });
     })
@@ -77,7 +85,7 @@ export const getListings = () => dispatch => {
 };
 
 export const checkLoggedIn = () => {
-  const currentUser = JSON.parse(window.localStorage.getItem('currentUser'));
+  const currentUser = getUserFromStorage(); //JSON.parse(window.localStorage.getItem('currentUser'));
 
   if (currentUser) {
     return { type: ALREADY_LOGGED_IN, payload: currentUser }
@@ -92,7 +100,8 @@ const loginHelper = (username, password, dispatch) => {
   axios.post('https://droom-pt-bw.herokuapp.com/login', { username, password })
     .then(res => {
       dispatch({ type: userConstants.LOGIN_SUCCESS, payload: { username, token: res.data.token } });
-      window.localStorage.setItem('currentUser', JSON.stringify({username, token: res.data.token}));
+      //window.localStorage.setItem('currentUser', JSON.stringify({username, token: res.data.token}));
+      storeUser(username, res.data.token);
     })
     .catch(err => {
       dispatch({ type: userConstants.LOGIN_FAILURE, payload: err });

@@ -14,11 +14,11 @@ const JobListingForm = ({ currentUser, addListing }) => {
   const submit = e => {
     e.preventDefault();
     addListing({
-        jobtitle,
-        description,
-        location,
-        salary
-      }, currentUser);
+      jobtitle,
+      description,
+      location,
+      salary
+    }, currentUser);
     setSubmitted(true);
   };
 
