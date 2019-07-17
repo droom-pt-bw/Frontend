@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 
-import { getUsers, getListings } from '../../stateManagement/actions';
+import { getListings } from '../../stateManagement/actions/listingsActions.js';
+import { getUsers } from '../../stateManagement/actions/usersActions';
 import JobSeekers from './JobSeekers';
 import JobListings from './JobListings';
 

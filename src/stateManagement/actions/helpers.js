@@ -21,3 +21,9 @@ export const getTokenFromStorage = () => {
 export const clearLocalUserInfo = () => {
   window.localStorage.removeItem('currentUser');
 };
+
+export const getAuthHeader = () => ({
+  headers: {
+    Authorization: getTokenFromStorage()
+  }
+});

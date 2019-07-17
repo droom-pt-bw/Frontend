@@ -1,5 +1,18 @@
-import { userConstants } from '../actions/registrationTypes';
-import { LISTINGS_REQUEST, LISTINGS_SUCCESS, LISTINGS_FAILURE } from '../actions/types';
+import { userConstants } from '../types/registrationTypes';
+import {
+  LISTINGS_REQUEST,
+  LISTINGS_SUCCESS,
+  LISTINGS_FAILURE,
+  ADD_LISTING_REQUESTED,
+  ADD_LISTING_SUCCESSFUL,
+  ADD_LISTING_FAILURE,
+  EDIT_LISTING_REQUESTED,
+  EDIT_LISTING_SUCCESSFUL,
+  EDIT_LISTING_FAILURE,
+  DELETE_LISTING_REQUESTED,
+  DELETE_LISTING_SUCCESSFUL,
+  DELETE_LISTING_FAILURE
+} from '../types/types';
 
 const initalFlags = {
   loginRequested: false,
@@ -13,7 +26,16 @@ const initalFlags = {
   fetchListingsError: null,
 
   registerRequested: false,
-  registerError: null
+  registerError: null,
+
+  addListingRequested: false,
+  addListingError: null,
+
+  editListingRequested: false,
+  editListingError: null,
+
+  deleteListingRequested: false,
+  deleteListingError: null
 };
 
 export default (state = initalFlags, action) => {
@@ -89,6 +111,57 @@ export default (state = initalFlags, action) => {
         ...state,
         registerRequested: false,
         registerError: null
+      };
+    case ADD_LISTING_REQUESTED:
+      return {
+        ...state,
+        addListingRequested: true,
+      };
+    case ADD_LISTING_SUCCESSFUL:
+      return {
+        ...state,
+        addListingRequested: false,
+        addListingError: null
+      }
+    case ADD_LISTING_FAILURE:
+      return {
+        ...state,
+        addListingRequested: false,
+        addListingError: action.payload
+      };
+    case EDIT_LISTING_REQUESTED:
+      return {
+        ...state,
+        editListingRequested: true,
+      };
+    case EDIT_LISTING_SUCCESSFUL:
+      return {
+        ...state,
+        editListingRequested: false,
+        editListingError: null
+      };
+    case EDIT_LISTING_FAILURE:
+      return {
+        ...state,
+        editListingRequested: false,
+        editListingError: action.payload
+      };
+    case DELETE_LISTING_REQUESTED:
+      return {
+        ...state,
+        deleteListingRequested: true
+      };
+    case DELETE_LISTING_SUCCESSFUL:
+      return {
+        ...state,
+        deleteListingRequested: false,
+        deleteListingError: null
+      };
+    case DELETE_LISTING_FAILURE:
+      return {
+        ...state,
+        deleteListingRequested: false,
+        deleteListingError: action.payload
       };
     default:
       return state;
