@@ -54,7 +54,11 @@ export const getUsers = () => dispatch => {
     }
   })
     .then(res => {
-      dispatch({ type: userConstants.GETALL_SUCCESS, payload: arrayToObj(res.data) });
+      dispatch({ type: userConstants.GETALL_SUCCESS, payload: arrayToObj(res.data.map(e => {
+        e.matches = [];
+        e.rejects = [];
+        return e;
+      })) });
     })
     .catch(err => {
       dispatch({ type: userConstants.GETALL_FAILURE, payload: err });
@@ -175,5 +179,29 @@ export const deleteListingLocal = (listingId) => {
   return {
     type: DELETE_LISTING_SUCCESSFUL,
     payload: listingId
+  };
+};
+
+export const matchJobWithSeekerLocal = () => {
+  return {
+
+  };
+};
+
+export const matchSeekerWithCompanyLocal = () => {
+  return {
+
+  };
+};
+
+export const rejectJobWithSeekerLocal = () => {
+  return {
+
+  };
+};
+
+export const rejectSeekerWithCompanyLocal = () => {
+  return {
+
   };
 };

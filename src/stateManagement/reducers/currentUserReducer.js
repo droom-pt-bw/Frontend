@@ -17,7 +17,9 @@ export default (state = null, action) => {
       return {
         ...state,
         id: user.id,
-        email: user.email
+        email: user.email,
+        matches: user.matches,
+        rejects: user.rejects
       };
 
     default:
