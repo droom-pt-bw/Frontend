@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
-import { register } from '../../stateManagement/actions';
+import { register } from '../../stateManagement/actions/registrationActions';
 
 const RegisterForm = ({ register, currentUser }) => {
   const [username, setUsername] = useState('');

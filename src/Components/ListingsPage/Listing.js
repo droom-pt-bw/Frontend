@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import { deleteListing } from '../../stateManagement/actions';
+import { deleteListing } from '../../stateManagement/actions/listingsActions.js';
 
 const Listing = (props) => {
   return (

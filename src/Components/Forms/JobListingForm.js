@@ -2,7 +2,7 @@ import  React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
-import { addListing, editListing } from '../../stateManagement/actions';
+import { addListing, editListing } from '../../stateManagement/actions/listingsActions.js';
 
 const JobListingForm = ({ currentUser, editListing, listing, addListing }) => {
   const [jobtitle, setJobtitle] = useState('');

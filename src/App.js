@@ -11,7 +11,7 @@ import JobListingForm from './Components/Forms/JobListingForm';
 import Home from './Components/HomePage/Home';
 import PrivateRoute from './Components/PrivateRoute';
 import Nav from './Components/Nav';
-import { checkLoggedIn } from './stateManagement/actions';
+import { checkLoggedIn } from './stateManagement/actions/loginActions';
 import Listings from './Components/ListingsPage/Listings';
 
 function App ({ checkLoggedIn }) {
