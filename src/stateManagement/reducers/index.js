@@ -3,7 +3,6 @@ import { combineReducers } from 'redux';
 import { 
   ADD_LISTING_SUCCESSFUL
 } from '../actions/types';
-import { userConstants } from '../actions/registrationTypes';
 
 import usersReducer from './usersReducer';
 import flagsReducer from './flagsReducer';
@@ -76,22 +75,22 @@ export const reducer = (state = initialState, action) => {
     //     ...state,
     //     fetchingUsers: true
     //   };
-    case userConstants.GETALL_SUCCESS:
+    // case userConstants.GETALL_SUCCESS:
 
-      const user = Object.values(action.payload).find(e => e.username === state.currentUser.username);
+    //   const user = Object.values(action.payload).find(e => e.username === state.currentUser.username);
 
-      return {
-        ...state,
-        // fetchingUsers: false,
-        // fetchUsersError: null,
-        //users: action.payload,
-        currentUser: {
-          ...state.currentUser,
-          id: user.id,
-          email: user.email,
-          isCompany: !!user.isCompany
-        }
-      };
+    //   return {
+    //     ...state,
+    //     // fetchingUsers: false,
+    //     // fetchUsersError: null,
+    //     //users: action.payload,
+    //     currentUser: {
+    //       ...state.currentUser,
+    //       id: user.id,
+    //       email: user.email,
+    //       isCompany: !!user.isCompany
+    //     }
+    //   };
     // case userConstants.GETALL_FAILURE:
     //   return {
     //     ...state,

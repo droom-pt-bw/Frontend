@@ -9,7 +9,8 @@ import {
   REGISTER_REQUESTED,
   REGISTER_SUCCESSFUL,
   REGISTER_FAILURE,
-  ADD_LISTING_SUCCESSFUL
+  ADD_LISTING_SUCCESSFUL,
+  EDIT_LISTING_SUCCESSFUL
 } from './types';
 import { userConstants } from './registrationTypes';
 import { 
@@ -108,14 +109,61 @@ const loginHelper = (username, password, dispatch) => {
     });
 };
 
-export const addListing = (listing, currentUser) => {
-  console.log(listing)
+export const addListing = (listing, currentUser) => dispatch => {
+  //console.log(listing)
+  axios.post('https://droom-pt-bw.herokuapp.com/listing', {
+    ...listing,
+    company: currentUser.username
+  },{
+    headers: {
+      Authorization: getTokenFromStorage()
+    }
+  })
+  .then(res => {
+    console.log(res);
+  })
+  .catch(err => {
+    console.log(err);
+  });
+  // return { 
+  //   type: ADD_LISTING_SUCCESSFUL,
+  //   payload: {
+  //     ...listing,
+  //     createdAt: Date.now(),
+  //     id: Date.now(),
+  //     company: currentUser.id }
+  // };
+
+  axios.put('https://droom-pt-bw.herokuapp.com/listing/3',{
+    ...listing,
+    company: currentUser.username
+  },{
+    headers: {
+      Authorization: getTokenFromStorage()
+    }
+  })
+  .then(res => {
+    console.log('PUT', res);
+  })
+  .catch(err => {
+    console.log('PUT', err);
+  })
+};
+
+export const addListingLocal = (listing, currentUser) => {
   return { 
-    type: ADD_LISTING_SUCCESSFUL,
-    payload: {
-      ...listing,
-      createdAt: Date.now(),
-      id: Date.now(),
-      company: currentUser.id }
+      type: ADD_LISTING_SUCCESSFUL,
+      payload: {
+        ...listing,
+        createdAt: Date.now(),
+        id: Date.now(),
+        company: currentUser.id }
+    };
+};
+
+export const editListingLocal = (listing) => {
+  return {
+    type: EDIT_LISTING_SUCCESSFUL,
+    payload: listing
   };
 };
