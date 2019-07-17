@@ -10,19 +10,19 @@ import {
   REGISTER_SUCCESSFUL,
   REGISTER_FAILURE,
   ADD_LISTING_SUCCESSFUL,
-  EDIT_LISTING_SUCCESSFUL,
-  DELETE_LISTING_SUCCESSFUL,
-  MATCH_SEEKER_WITH_COMPANY_SUCCESSFUL,
   ADD_LISTING_REQUESTED,
-  ADD_LISTING_FAILURE
+  ADD_LISTING_FAILURE,
+  EDIT_LISTING_REQUESTED,
+  EDIT_LISTING_SUCCESSFUL,
+  EDIT_LISTING_FAILURE
 } from './types';
 import { userConstants } from './registrationTypes';
 import { 
   arrayToObj,
   storeUser,
   getUserFromStorage,
-  getTokenFromStorage,
-  clearLocalUserInfo
+  clearLocalUserInfo,
+  getAuthHeader
 } from '../../utils/helpers';
 
 export const login = (username, password) => dispatch => {
@@ -51,11 +51,9 @@ export const register = user => dispatch => {
 export const getUsers = () => dispatch => {
   dispatch({ type: userConstants.GETALL_REQUEST });
 
-  axios.get('https://droom-pt-bw.herokuapp.com/users', {
-    headers: {
-      Authorization: getTokenFromStorage()
-    }
-  })
+  axios.get('https://droom-pt-bw.herokuapp.com/users',
+    getAuthHeader()
+  )
     .then(res => {
       dispatch({ type: userConstants.GETALL_SUCCESS, payload: arrayToObj(res.data.map(e => {
         e.matches = [];
@@ -71,11 +69,9 @@ export const getUsers = () => dispatch => {
 export const getListings = () => dispatch => {
   dispatch({ type: LISTINGS_REQUEST });
 
-  axios.get('https://droom-pt-bw.herokuapp.com/listings', {
-    headers: {
-      Authorization: getTokenFromStorage()
-    }
-  })
+  axios.get('https://droom-pt-bw.herokuapp.com/listings', 
+    getAuthHeader()
+  )
     .then(res => {
       dispatch({ type: LISTINGS_SUCCESS, payload: arrayToObj(res.data) });
     })
@@ -85,7 +81,7 @@ export const getListings = () => dispatch => {
 };
 
 export const checkLoggedIn = () => {
-  const currentUser = getUserFromStorage(); //JSON.parse(window.localStorage.getItem('currentUser'));
+  const currentUser = getUserFromStorage();
 
   if (currentUser) {
     return { type: ALREADY_LOGGED_IN, payload: currentUser }
@@ -124,11 +120,7 @@ export const addListing = (listing, currentUser) => dispatch => {
     ...listing,
     company: currentUser.username,
     user_id: currentUser.id
-  },{
-    headers: {
-      Authorization: getTokenFromStorage()
-    }
-  })
+  }, getAuthHeader())
   .then(res => {
     dispatch({
       type: ADD_LISTING_SUCCESSFUL,
@@ -143,57 +135,23 @@ export const addListing = (listing, currentUser) => dispatch => {
   });
 };
 
-export const addListingLocal = (listing, currentUser) => {
-  return { 
-      type: ADD_LISTING_SUCCESSFUL,
-      payload: {
-        ...listing,
-        createdAt: Date.now(),
-        id: Date.now(),
-        company: currentUser.username,
-        ownerId: currentUser.id
-      }
-    };
-};
+export const editListing = listing => dispatch => {
+  dispatch({ type: EDIT_LISTING_REQUESTED });
 
-export const editListingLocal = (listing) => {
-  return {
-    type: EDIT_LISTING_SUCCESSFUL,
-    payload: listing
-  };
-};
-
-export const deleteListingLocal = (listingId) => {
-  return {
-    type: DELETE_LISTING_SUCCESSFUL,
-    payload: listingId
-  };
-};
-
-export const matchJobWithSeekerLocal = () => {
-  return {
-
-  };
-};
-
-export const matchSeekerWithCompanyLocal = (seeker, currentUser) => {
-  return {
-    type: MATCH_SEEKER_WITH_COMPANY_SUCCESSFUL,
-    payload: {
-      seeker: seeker.id,
-      currentUser: currentUser.id
-    }
-  };
-};
-
-export const rejectJobWithSeekerLocal = () => {
-  return {
-
-  };
-};
-
-export const rejectSeekerWithCompanyLocal = () => {
-  return {
-
-  };
+  axios.put(`https://droom-pt-bw.herokuapp.com/users/listing/${listing.id}`,
+    listing,
+    getAuthHeader()
+  )
+  .then(() => {
+    dispatch({
+      type: EDIT_LISTING_SUCCESSFUL,
+      payload: listing
+    });
+  })
+  .catch(err => {
+    dispatch({
+      type: EDIT_LISTING_FAILURE,
+      payload: err
+    });
+  });
 };
