@@ -12,7 +12,7 @@ const Nav = ({ username, isCompany, logout }) => {
       <Link to="#">Matches</Link>
       <Link to="/profileform">Profile</Link>
       {isCompany &&
-        <Link to="#">Listings</Link>
+        <Link to="/listings">Listings</Link>
       }
       {username
         ? <h3>{username}</h3>

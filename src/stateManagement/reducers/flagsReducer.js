@@ -1,22 +1,7 @@
-import { 
-  LISTINGS_REQUEST,
-  LISTINGS_SUCCESS,
-  LISTINGS_FAILURE,
-  ALREADY_LOGGED_IN,
-  NOT_YET_LOGGED_IN,
-  REGISTER_REQUESTED,
-  REGISTER_SUCCESSFUL,
-  REGISTER_FAILURE
-} from '../actions/types';
 import { userConstants } from '../actions/registrationTypes';
+import { LISTINGS_REQUEST, LISTINGS_SUCCESS, LISTINGS_FAILURE } from '../actions/types';
 
-const initialState = {
-  users: {},
-  listings: {},
-
-  matches: [],
-
-  currentUser: null,
+const initalFlags = {
   loginRequested: false,
   loginFailed: false,
   loginError: null,
@@ -31,7 +16,7 @@ const initialState = {
   registerError: null
 };
 
-export default (state = initialState, action) => {
+export default (state = initalFlags, action) => {
   switch (action.type) {
     case userConstants.LOGIN_REQUEST:
       return {
@@ -43,45 +28,33 @@ export default (state = initialState, action) => {
     case userConstants.LOGIN_SUCCESS:
       return {
         ...state,
-        currentUser: { ...state.currentUser, ...action.payload},
         loginRequested: false,
         loginFailed: false,
         loginError: null
-      }
+      };
     case userConstants.LOGIN_FAILURE:
       return {
         ...state,
-        currentUser: null,
+        loginRequested: false,
         loginFailed: true,
         loginError: action.payload
-      }
+      };
     case userConstants.LOGOUT:
       return {
         ...state,
-        currentUser: null,
         loginFailed: false,
         loginError: null
-      }
+      };
     case userConstants.GETALL_REQUEST:
       return {
         ...state,
         fetchingUsers: true
       };
     case userConstants.GETALL_SUCCESS:
-
-      const user = Object.values(action.payload).find(e => e.username === state.currentUser.username);
-
       return {
         ...state,
         fetchingUsers: false,
-        fetchUsersError: null,
-        users: action.payload,
-        currentUser: {
-          ...state.currentUser,
-          id: user.id,
-          email: user.email,
-          isCompany: !!user.isCompany
-        }
+        fetchUsersError: null
       };
     case userConstants.GETALL_FAILURE:
       return {
@@ -98,8 +71,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         fetchingListings: false,
-        fetchListingsErrors: null,
-        listings: action.payload
+        fetchListingsErrors: null
       };
     case LISTINGS_FAILURE:
       return {
@@ -107,33 +79,17 @@ export default (state = initialState, action) => {
         fetchingListings: false,
         fetchListingsError: action.payload
       };
-    case ALREADY_LOGGED_IN:
-      return {
-        ...state,
-        currentUser: action.payload
-      };
-    case NOT_YET_LOGGED_IN:
-      return {
-        ...state,
-        currentUser: null
-      };
-    case REGISTER_REQUESTED:
+    case userConstants.REGISTER_REQUESTED:
       return {
         ...state,
         registerRequested: true
       };
-    case REGISTER_SUCCESSFUL:
+    case userConstants.REGISTER_SUCCESSFUL:
       return {
         ...state,
         registerRequested: false,
         registerError: null
       };
-    case REGISTER_FAILURE:
-      return {
-        ...state,
-        registerRequested: false,
-        registerError: action.payload
-      }
     default:
       return state;
   };

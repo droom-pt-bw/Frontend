@@ -7,10 +7,12 @@ import Login from './Components/Forms/LoginForm';
 import UserProfile from './Components/Forms/userProfile';
 import NotFound from './Components/NotFound/NotFound';
 import RegisterForm from './Components/Forms/RegisterForm';
+import JobListingForm from './Components/Forms/JobListingForm';
 import Home from './Components/HomePage/Home';
 import PrivateRoute from './Components/PrivateRoute';
 import Nav from './Components/Nav';
 import { checkLoggedIn } from './stateManagement/actions';
+import Listings from './Components/ListingsPage/Listings';
 
 function App ({ checkLoggedIn }) {
   useEffect(() => {
@@ -25,7 +27,10 @@ function App ({ checkLoggedIn }) {
           <PrivateRoute path="/" exact component={Home} />
           <Route path="/login" component={Login} />
           <PrivateRoute path="/profileform" component={UserProfile} />
-          <Route path="/register" component={RegisterForm}/>
+          <Route path="/register" component={RegisterForm} />
+          <PrivateRoute path="/listings" exact component={Listings} />
+          <PrivateRoute path="/listings/add" component={JobListingForm} />
+          <PrivateRoute path="/listings/edit/:id" component={JobListingForm} />
           <Route path="*" component={NotFound} />
         </Switch> 
       </Router>
