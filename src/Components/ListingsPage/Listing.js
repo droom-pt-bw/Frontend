@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import {  } from '../../stateManagement/actions';
+import { deleteListing } from '../../stateManagement/actions';
 
 const Listing = (props) => {
   return (
@@ -11,7 +11,7 @@ const Listing = (props) => {
       <Link to={`/listings/edit/${props.id}`}>
         edit
       </Link>
-      <button>
+      <button onClick={() => props.deleteListing(props.id)}>
         X
       </button>
       <p>Created: {props.createdAt}</p>
@@ -28,4 +28,4 @@ const mapStateToProps = ({ listings }, { id }) => {
   };
 };
 
-export default connect(mapStateToProps, {  })(Listing);
+export default connect(mapStateToProps, { deleteListing })(Listing);

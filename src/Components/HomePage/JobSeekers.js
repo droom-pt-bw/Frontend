@@ -45,8 +45,9 @@ const JobSeekers = ({ jobSeekers, fetchingUsers }) => {
 
 const mapStateToProps = ({ users, flags, currentUser }) => {
   return {
-    jobSeekers: Object.values(users)
-        .filter(e => !e.isCompany && !(currentUser.matches.includes(e.id) || currentUser.rejects.includes(e.id))),
+    jobSeekers: Object.values(users).length
+    ? Object.values(users).filter(e => !e.isCompany && !(currentUser.matches.includes(e.id) || currentUser.rejects.includes(e.id)))
+    : [],
     fetchingUsers: flags.fetchingUsers
   };
 };

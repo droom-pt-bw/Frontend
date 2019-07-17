@@ -1,5 +1,5 @@
 import { userConstants } from '../actions/registrationTypes';
-import { LISTINGS_REQUEST, LISTINGS_SUCCESS, LISTINGS_FAILURE, ADD_LISTING_REQUESTED, ADD_LISTING_SUCCESSFUL, ADD_LISTING_FAILURE, EDIT_LISTING_REQUESTED, EDIT_LISTING_SUCCESSFUL, EDIT_LISTING_FAILURE } from '../actions/types';
+import { LISTINGS_REQUEST, LISTINGS_SUCCESS, LISTINGS_FAILURE, ADD_LISTING_REQUESTED, ADD_LISTING_SUCCESSFUL, ADD_LISTING_FAILURE, EDIT_LISTING_REQUESTED, EDIT_LISTING_SUCCESSFUL, EDIT_LISTING_FAILURE, DELETE_LISTING_REQUESTED, DELETE_LISTING_SUCCESSFUL, DELETE_LISTING_FAILURE } from '../actions/types';
 
 const initalFlags = {
   loginRequested: false,
@@ -19,7 +19,10 @@ const initalFlags = {
   addListingError: null,
 
   editListingRequested: false,
-  editListingError: null
+  editListingError: null,
+
+  deleteListingRequested: false,
+  deleteListingError: null
 };
 
 export default (state = initalFlags, action) => {
@@ -129,6 +132,23 @@ export default (state = initalFlags, action) => {
         ...state,
         editListingRequested: false,
         editListingError: action.payload
+      };
+    case DELETE_LISTING_REQUESTED:
+      return {
+        ...state,
+        deleteListingRequested: true
+      };
+    case DELETE_LISTING_SUCCESSFUL:
+      return {
+        ...state,
+        deleteListingRequested: false,
+        deleteListingError: null
+      };
+    case DELETE_LISTING_FAILURE:
+      return {
+        ...state,
+        deleteListingRequested: false,
+        deleteListingError: action.payload
       };
     default:
       return state;

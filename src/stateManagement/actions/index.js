@@ -14,7 +14,10 @@ import {
   ADD_LISTING_FAILURE,
   EDIT_LISTING_REQUESTED,
   EDIT_LISTING_SUCCESSFUL,
-  EDIT_LISTING_FAILURE
+  EDIT_LISTING_FAILURE,
+  DELETE_LISTING_REQUESTED,
+  DELETE_LISTING_SUCCESSFUL,
+  DELETE_LISTING_FAILURE
 } from './types';
 import { userConstants } from './registrationTypes';
 import { 
@@ -151,6 +154,28 @@ export const editListing = listing => dispatch => {
   .catch(err => {
     dispatch({
       type: EDIT_LISTING_FAILURE,
+      payload: err
+    });
+  });
+};
+
+export const deleteListing = listingId => dispatch => {
+  dispatch({ type: DELETE_LISTING_REQUESTED });
+
+  axios.delete(`https://droom-pt-bw.herokuapp.com/users/listing/${listingId}`,
+    getAuthHeader()
+  )
+  .then(res => {
+    console.log(res);
+    dispatch({
+      type: DELETE_LISTING_SUCCESSFUL,
+      payload: listingId
+    });
+  })
+  .catch(err => {
+    console.log(err);
+    dispatch({
+      type: DELETE_LISTING_FAILURE,
       payload: err
     });
   });
