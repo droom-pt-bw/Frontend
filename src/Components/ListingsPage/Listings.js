@@ -21,7 +21,7 @@ const Listings = ({ listings }) => {
 const mapStateToProps = ({ listings, currentUser }) => {
   return {
     listings: Object.values(listings)
-      .filter(e => e.company === currentUser.id)
+      .filter(e => e.ownerId === currentUser.id || e.company === currentUser.username)
       .map(e => e.id)
   };
 };

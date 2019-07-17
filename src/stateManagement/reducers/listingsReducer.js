@@ -1,4 +1,4 @@
-import { LISTINGS_SUCCESS, LISTINGS_FAILURE, ADD_LISTING_SUCCESSFUL, EDIT_LISTING_SUCCESSFUL } from "../actions/types";
+import { LISTINGS_SUCCESS, LISTINGS_FAILURE, ADD_LISTING_SUCCESSFUL, EDIT_LISTING_SUCCESSFUL, DELETE_LISTING_SUCCESSFUL } from "../actions/types";
 
 export default (state = {}, action) => {
   switch (action.type) {
@@ -16,6 +16,10 @@ export default (state = {}, action) => {
         }
       };
 
+    case DELETE_LISTING_SUCCESSFUL:
+      const { [action.payload]: toBeDeleted, ...rest } = state;
+      return rest;
+    
     default:
       return state;
   }

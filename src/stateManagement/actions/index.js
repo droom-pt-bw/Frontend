@@ -10,7 +10,8 @@ import {
   REGISTER_SUCCESSFUL,
   REGISTER_FAILURE,
   ADD_LISTING_SUCCESSFUL,
-  EDIT_LISTING_SUCCESSFUL
+  EDIT_LISTING_SUCCESSFUL,
+  DELETE_LISTING_SUCCESSFUL
 } from './types';
 import { userConstants } from './registrationTypes';
 import { 
@@ -157,7 +158,9 @@ export const addListingLocal = (listing, currentUser) => {
         ...listing,
         createdAt: Date.now(),
         id: Date.now(),
-        company: currentUser.id }
+        company: currentUser.username,
+        ownerId: currentUser.id
+      }
     };
 };
 
@@ -165,5 +168,12 @@ export const editListingLocal = (listing) => {
   return {
     type: EDIT_LISTING_SUCCESSFUL,
     payload: listing
+  };
+};
+
+export const deleteListingLocal = (listingId) => {
+  return {
+    type: DELETE_LISTING_SUCCESSFUL,
+    payload: listingId
   };
 };
