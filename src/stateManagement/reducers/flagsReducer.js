@@ -1,5 +1,5 @@
 import { userConstants } from '../actions/registrationTypes';
-import { LISTINGS_REQUEST, LISTINGS_SUCCESS, LISTINGS_FAILURE } from '../actions/types';
+import { LISTINGS_REQUEST, LISTINGS_SUCCESS, LISTINGS_FAILURE, ADD_LISTING_REQUESTED, ADD_LISTING_SUCCESSFUL, ADD_LISTING_FAILURE } from '../actions/types';
 
 const initalFlags = {
   loginRequested: false,
@@ -13,7 +13,10 @@ const initalFlags = {
   fetchListingsError: null,
 
   registerRequested: false,
-  registerError: null
+  registerError: null,
+
+  addListingRequest: false,
+  addListingError: null
 };
 
 export default (state = initalFlags, action) => {
@@ -89,6 +92,23 @@ export default (state = initalFlags, action) => {
         ...state,
         registerRequested: false,
         registerError: null
+      };
+    case ADD_LISTING_REQUESTED:
+      return {
+        ...state,
+        addListingRequested: true,
+      };
+    case ADD_LISTING_SUCCESSFUL:
+      return {
+        ...state,
+        addListingRequested: false,
+        addListingError: null
+      }
+    case ADD_LISTING_FAILURE:
+      return {
+        ...state,
+        addListingRequested: false,
+        addListingError: action.payload
       };
     default:
       return state;

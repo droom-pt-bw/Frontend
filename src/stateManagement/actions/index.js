@@ -11,7 +11,10 @@ import {
   REGISTER_FAILURE,
   ADD_LISTING_SUCCESSFUL,
   EDIT_LISTING_SUCCESSFUL,
-  DELETE_LISTING_SUCCESSFUL
+  DELETE_LISTING_SUCCESSFUL,
+  MATCH_SEEKER_WITH_COMPANY_SUCCESSFUL,
+  ADD_LISTING_REQUESTED,
+  ADD_LISTING_FAILURE
 } from './types';
 import { userConstants } from './registrationTypes';
 import { 
@@ -115,44 +118,29 @@ const loginHelper = (username, password, dispatch) => {
 };
 
 export const addListing = (listing, currentUser) => dispatch => {
-  //console.log(listing)
-  axios.post('https://droom-pt-bw.herokuapp.com/listing', {
-    ...listing,
-    company: currentUser.username
-  },{
-    headers: {
-      Authorization: getTokenFromStorage()
-    }
-  })
-  .then(res => {
-    console.log(res);
-  })
-  .catch(err => {
-    console.log(err);
-  });
-  // return { 
-  //   type: ADD_LISTING_SUCCESSFUL,
-  //   payload: {
-  //     ...listing,
-  //     createdAt: Date.now(),
-  //     id: Date.now(),
-  //     company: currentUser.id }
-  // };
+  dispatch({ type: ADD_LISTING_REQUESTED });
 
-  axios.put('https://droom-pt-bw.herokuapp.com/listing/3',{
+  axios.post('https://droom-pt-bw.herokuapp.com/users/listing', {
     ...listing,
-    company: currentUser.username
+    company: currentUser.username,
+    user_id: currentUser.id
   },{
     headers: {
       Authorization: getTokenFromStorage()
     }
   })
   .then(res => {
-    console.log('PUT', res);
+    dispatch({
+      type: ADD_LISTING_SUCCESSFUL,
+      payload: res.data
+    });
   })
   .catch(err => {
-    console.log('PUT', err);
-  })
+    dispatch({
+      type: ADD_LISTING_FAILURE,
+      payload: err
+    });
+  });
 };
 
 export const addListingLocal = (listing, currentUser) => {
@@ -188,9 +176,13 @@ export const matchJobWithSeekerLocal = () => {
   };
 };
 
-export const matchSeekerWithCompanyLocal = () => {
+export const matchSeekerWithCompanyLocal = (seeker, currentUser) => {
   return {
-
+    type: MATCH_SEEKER_WITH_COMPANY_SUCCESSFUL,
+    payload: {
+      seeker: seeker.id,
+      currentUser: currentUser.id
+    }
   };
 };
 

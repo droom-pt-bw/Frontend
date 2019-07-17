@@ -2,9 +2,9 @@ import  React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
-import { addListingLocal, editListingLocal } from '../../stateManagement/actions';
+import { addListingLocal, editListingLocal, addListing } from '../../stateManagement/actions';
 
-const JobListingForm = ({ currentUser, addListingLocal, editListingLocal, listing }) => {
+const JobListingForm = ({ currentUser, addListingLocal, editListingLocal, listing, addListing }) => {
   const [jobtitle, setJobtitle] = useState('');
   const [description, setDescription] = useState('');
   const [location, setLocation] = useState('');
@@ -34,7 +34,8 @@ const JobListingForm = ({ currentUser, addListingLocal, editListingLocal, listin
         salary
       });
     } else {
-      addListingLocal({
+      console.log('submit')
+      addListing({
         jobtitle,
         description,
         location,
@@ -95,4 +96,4 @@ const mapStateToProps = ({ currentUser, listings }, ownProps) => {
   };
 };
 
-export default connect(mapStateToProps, { addListingLocal, editListingLocal })(JobListingForm);
+export default connect(mapStateToProps, { addListing, addListingLocal, editListingLocal })(JobListingForm);
