@@ -3,7 +3,7 @@ import {
   EDIT_LISTING_SUCCESSFUL,
   DELETE_LISTING_SUCCESSFUL,
   MATCH_SEEKER_WITH_COMPANY_SUCCESSFUL
-} from './types';
+} from '../types/types';
 
 // This is just some testing stuff.  Don't actually use it for anything 'real'.
 

@@ -2,7 +2,7 @@ import { combineReducers } from 'redux';
 
 import { 
   ADD_LISTING_SUCCESSFUL
-} from '../actions/types';
+} from '../types/types';
 
 import usersReducer from './usersReducer';
 import flagsReducer from './flagsReducer';

@@ -1,5 +1,5 @@
-import { userConstants } from "../actions/registrationTypes";
-import { ALREADY_LOGGED_IN, NOT_YET_LOGGED_IN } from "../actions/types";
+import { userConstants } from "../types/registrationTypes";
+import { ALREADY_LOGGED_IN, NOT_YET_LOGGED_IN } from "../types/types";
 
 export default (state = null, action) => {
   switch (action.type) {

@@ -18,8 +18,8 @@ import {
   DELETE_LISTING_REQUESTED,
   DELETE_LISTING_SUCCESSFUL,
   DELETE_LISTING_FAILURE
-} from './types';
-import { userConstants } from './registrationTypes';
+} from '../types/types';
+import { userConstants } from '../types/registrationTypes';
 import { 
   arrayToObj,
   storeUser,
