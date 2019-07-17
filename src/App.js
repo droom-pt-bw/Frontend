@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import Login from './Components/Forms/LoginForm';
-import UserProfile from './Components/Forms/userProfile';
+import UserProfile from './Components/Forms/UserProfiles';
 import NotFound from './Components/NotFound/NotFound';
 import RegisterForm from './Components/Forms/RegisterForm';
 import JobListingForm from './Components/Forms/JobListingForm';
