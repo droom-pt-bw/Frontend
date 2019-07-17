@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import Login from './Components/Forms/LoginForm';
-import UserProfile from './Components/Forms/UserProfiles';
+import UserProfileForm from './Components/Forms/UserProfileForm';
 import NotFound from './Components/NotFound/NotFound';
 import RegisterForm from './Components/Forms/RegisterForm';
 import JobListingForm from './Components/Forms/JobListingForm';
@@ -26,7 +26,7 @@ function App ({ checkLoggedIn }) {
         <Switch>
           <PrivateRoute path="/" exact component={Home} />
           <Route path="/login" component={Login} />
-          <PrivateRoute path="/profileform" component={UserProfile} />
+          <PrivateRoute path="/profileform" component={UserProfileForm} />
           <Route path="/register" component={RegisterForm} />
           <PrivateRoute path="/listings" exact component={Listings} />
           <PrivateRoute path="/listings/add" component={JobListingForm} />
