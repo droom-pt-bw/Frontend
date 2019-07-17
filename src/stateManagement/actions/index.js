@@ -1,8 +1,6 @@
 import axios from 'axios';
 
 import { 
-  LOGIN_SUCCESS,
-  LOGIN_FAIL,
   LISTINGS_REQUEST,
   LISTINGS_SUCCESS,
   LISTINGS_FAILURE,
@@ -14,27 +12,20 @@ import {
   ADD_LISTING_SUCCESSFUL
 } from './types';
 import { userConstants } from './registrationTypes';
-import store from '../index';
-import { arrayToObj, storeUser, getUserFromStorage, getTokenFromStorage } from '../../utils/helpers';
-
-export const loginLocal = (username, password) => {
-  const { users } = store.getState();
-
-  const user = Object.values(users).find(e => e.username === username);
-
-  if (user && user.password === password) {
-    return { type: LOGIN_SUCCESS, payload: user };
-  } else {
-    return { type: LOGIN_FAIL };
-  }
-};
+import { 
+  arrayToObj,
+  storeUser,
+  getUserFromStorage,
+  getTokenFromStorage,
+  clearLocalUserInfo
+} from '../../utils/helpers';
 
 export const login = (username, password) => dispatch => {
   loginHelper(username, password, dispatch);
 };
 
 export const logout = () => {
-  window.localStorage.removeItem('currentUser');
+  clearLocalUserInfo();
   return { type: userConstants.LOGOUT };
 };
 
@@ -106,8 +97,11 @@ const loginHelper = (username, password, dispatch) => {
           token: res.data.token 
         }
       });
-      //window.localStorage.setItem('currentUser', JSON.stringify({username, token: res.data.token}));
-      storeUser(username, res.data.token);
+      storeUser({
+        username: res.data.username,
+        isCompany: res.data.isCompany,
+        token: res.data.token
+      });
     })
     .catch(err => {
       dispatch({ type: userConstants.LOGIN_FAILURE, payload: err });

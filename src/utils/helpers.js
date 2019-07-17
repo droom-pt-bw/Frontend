@@ -4,8 +4,8 @@ export const arrayToObj = (arr) =>
     return obj;
   }, {});
 
-export const storeUser = (username, token) => {
-  window.localStorage.setItem('currentUser', JSON.stringify({username, token}));
+export const storeUser = (userInfo) => {
+  window.localStorage.setItem('currentUser', JSON.stringify(userInfo));
 };
 
 export const getUserFromStorage = () => {
@@ -16,4 +16,8 @@ export const getTokenFromStorage = () => {
   const currentUser = JSON.parse(window.localStorage.getItem('currentUser'));
 
   return currentUser ? currentUser.token : null;
+};
+
+export const clearLocalUserInfo = () => {
+  window.localStorage.removeItem('currentUser');
 };
