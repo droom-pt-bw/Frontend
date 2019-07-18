@@ -4,9 +4,10 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { logout } from '../stateManagement/actions/loginActions';
+import logo from '../Droom-01.png';
 
 const Bar = styled.nav`
-  background: #FFFFFF;
+  background: #F3EBF6;
   margin: 0;
   width: 100%;
   display: flex;
@@ -30,6 +31,16 @@ const Bar = styled.nav`
   }
 `;
 
+const Logo = styled.div`
+  background-image: url(${logo});
+  background-size: contain;
+  background-repeat: no-repeat;
+  display: block;
+  height: 2.2rem;
+  width: 8rem;
+  margin: 0 2rem;
+`;
+
 const FancyLink = styled(Link)`
   background-color: #4F47B8;
   padding: 0.5rem 1rem;
@@ -44,9 +55,7 @@ const Nav = ({ username, isCompany, logout }) => {
   return (
     <Bar>
       <div>
-        <div className = "logo-div">
-          <strong>Droom</strong>
-        </div>
+        <Logo />
         <FancyLink to="/">Home</FancyLink>
         <FancyLink to="#">Matches</FancyLink>
         <FancyLink to="/profileform">Profile</FancyLink>
