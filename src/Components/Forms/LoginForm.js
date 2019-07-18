@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
-
 import { login, logout } from '../../stateManagement/actions/loginActions';
+import "./Login.css";
+
 
 const LoginForm = ({ currentUser, loginFailed, login }) => {
   const [username, setUsername] = useState('');
@@ -31,31 +32,39 @@ const LoginForm = ({ currentUser, loginFailed, login }) => {
   }
 
   return (
-    <div>
+    <div className = "body">
+      <div className = "main">
+        <p className = "sign" >Sign in</p>
       {loginFailed && <p>those credentials were incorrect</p>}
 
-      <form onSubmit={signIn}>
-        <label htmlFor="">Username</label>
-        <input
-          type="text"
-          value={username}
-          onChange={handleUsername}
-        />
-        <label htmlFor="">Password</label>
-        <input 
-          type="text"
-          value={password}
-          onChange={handlePassword}
-        />
-        <input type="submit" value="Sign In" />
-      </form>
-      
-      <p>Not yet a member? Sign up here</p>
-      <Link to="/register">
-        <button>
-          Create Account
-        </button>
-      </Link>
+<form onSubmit={signIn} className = "form1">
+
+  <input
+    type="text"
+    value={username}
+    onChange={handleUsername}
+    className = "un"
+    placeholder = "Username"
+  />
+
+  <input 
+    className = "pass"
+    placeholder = "Password"
+    type="password"
+    value={password}
+    onChange={handlePassword}
+  />
+  <input className = 'submit' type="submit" value="Sign In"  />
+</form>
+
+
+<Link to="/register">
+  <p className = "forgot">
+    Create Account
+  </p>
+</Link>
+
+      </div>
     </div>
   );
 };

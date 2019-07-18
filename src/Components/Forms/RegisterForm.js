@@ -22,19 +22,25 @@ const RegisterForm = ({ register, currentUser }) => {
   }
 
   return (
-    <form onSubmit={submit}>
-      <div>register</div>
-
-      <label htmlFor="">Username</label>
+    <div className = "body">
+      <div className = "main">
+      <div className = "sign">register</div>
+      <form onSubmit={submit} className = "form1">
+      
       <input 
         type="text"
+        className = "un"
+        placeholder = "UserName"
         value={username}
         onChange={e => setUsername(e.target.value)}
+
       />
 
       <label htmlFor="">Email</label>
       <input 
         type="text"
+        className = 'un'
+        placeholder = "email"
         value={email}
         onChange={e => setEmail(e.target.value)}
       />
@@ -42,6 +48,9 @@ const RegisterForm = ({ register, currentUser }) => {
       <label htmlFor="">Password</label>
       <input 
         type="text"
+        className = "pass"
+        type = "password"
+        placeholder = "password"
         value={password}
         onChange={e => setPassword(e.target.value)}
       />
@@ -57,6 +66,10 @@ const RegisterForm = ({ register, currentUser }) => {
       
       <input type="submit"/>
     </form>
+         
+      </div>
+    </div>
+    
   )
 };
 
