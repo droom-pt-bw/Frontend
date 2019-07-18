@@ -6,9 +6,9 @@ import { logout } from '../stateManagement/actions';
 
 const Nav = ({ username, isCompany, logout }) => {
   return (
-    <nav>
+    <nav className = "nav">
       <h1>Droom</h1>
-      <Link to="/">Home</Link>
+      <Link to="/"  >Home</Link>
       <Link to="#">Matches</Link>
       <Link to="/profileform">Profile</Link>
       {isCompany &&
