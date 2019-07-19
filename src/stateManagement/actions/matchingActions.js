@@ -32,7 +32,8 @@ export const getSeekerMatches = (userId) => dispatch => {
 
   axios.get(`https://droom-pt-bw.herokuapp.com/matched/seeker/${userId}`)
   .then(res => {
-    dispatch({ type: GET_SEEKER_MATCHES_SUCCESSFUL });
+    console.log(res);
+    dispatch({ type: GET_SEEKER_MATCHES_SUCCESSFUL, payload: res.data });
   })
   .catch(err => {
     dispatch({ type: GET_SEEKER_MATCHES_FAILURE, payload: err });

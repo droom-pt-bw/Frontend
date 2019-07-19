@@ -57,8 +57,10 @@ const Nav = ({ username, isCompany, logout }) => {
       <div>
         <Logo />
         <FancyLink to="/">Home</FancyLink>
-        <FancyLink to="#">Matches</FancyLink>
         <FancyLink to="/profileform">Profile</FancyLink>
+        {(username && !isCompany) &&
+          <FancyLink to="/matches">Matches</FancyLink>
+        }
       </div>
       <div>
         {username

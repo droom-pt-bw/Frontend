@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 import { createGlobalStyle } from 'styled-components';
 import Trianglify from 'trianglify';
 
+import { checkLoggedIn } from './stateManagement/actions/loginActions';
+
 import Login from './Components/Forms/LoginForm';
 import UserProfileForm from './Components/Forms/UserProfileForm';
 import NotFound from './Components/NotFound/NotFound';
@@ -13,7 +15,8 @@ import JobListingForm from './Components/Forms/JobListingForm';
 import Home from './Components/HomePage/Home';
 import PrivateRoute from './Components/PrivateRoute';
 import Nav from './Components/Nav';
-import { checkLoggedIn } from './stateManagement/actions/loginActions';
+import MatchesPage from './Components/MatchesPage/MatchesPage';
+
 
 const pattern = Trianglify({
   height: 1080,
@@ -57,6 +60,7 @@ function App ({ checkLoggedIn }) {
             <Route path="/login" component={Login} />
             <PrivateRoute path="/profileform" component={UserProfileForm} />
             <Route path="/register" component={RegisterForm} />
+            <PrivateRoute path="/matches" component={MatchesPage} />
             <PrivateRoute path="/listings/add" component={JobListingForm} />
             <PrivateRoute path="/listings/edit/:id" component={JobListingForm} />
             <Route path="*" component={NotFound} />
