@@ -8,7 +8,11 @@ import {
   GET_SEEKER_MATCHES_SUCCESSFUL,
   GET_SEEKER_MATCHES_FAILURE,
   JOB_MATCH_REQUESTED,
-  JOB_MATCH_FAILURE
+  JOB_MATCH_SUCCESSFUL,
+  JOB_MATCH_FAILURE,
+  GET_MATCHES_FOR_JOBS_REQUESTED,
+  GET_MATCHES_FOR_JOBS_SUCCESSFUL,
+  GET_MATCHES_FOR_JOBS_FAILURE
 } from '../types/types';
 
 export const matchSeekerToJob = (userId, listingId) => dispatch => {
@@ -47,14 +51,21 @@ export const matchJobToSeeker = (listingId, seekerId) => dispatch => {
   });
 };
 
-export const getMatchesForJobs = (listingId, userId) => dispatch => {
+export const getMatchesForJobs = listingId => dispatch => {
   dispatch({type: GET_MATCHES_FOR_JOBS_REQUESTED});
 
   axios.get(`https://droom-pt-bw.herokuapp.com/matched/job/${listingId}`)
   .then(res => {
-    dispatch({type:GET_MATCHES_FOR_JOBS_SUCCESSFUL })
+    console.log(res);
+    dispatch({
+      type:GET_MATCHES_FOR_JOBS_SUCCESSFUL,
+      payload: {
+        id: listingId,
+        matches: res.data
+      }
+    });
   })
   .catch(err => {
-    dispatch({type: GET_MATCHES_FOR_JOBS_FAILURE, payload: err})
+    dispatch({type: GET_MATCHES_FOR_JOBS_FAILURE, payload: err});
   })
 };

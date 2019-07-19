@@ -2,8 +2,8 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import { getListings } from '../../stateManagement/actions/listingsActions.js';
-import JobSeekers from './JobSeekers';
 import JobListings from './JobListings';
+import Listings from '../ListingsPage/Listings';
 
 const Home = ({ getListings, isCompany }) => {
   useEffect(() => {
@@ -19,7 +19,7 @@ const Home = ({ getListings, isCompany }) => {
   return (
     <div>
       {isCompany
-        ? <JobSeekers />
+        ? <Listings />
         : <JobListings />
       }
     </div>
