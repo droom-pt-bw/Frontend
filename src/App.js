@@ -8,7 +8,7 @@ import Trianglify from 'trianglify';
 import { checkLoggedIn } from './stateManagement/actions/loginActions';
 
 import Login from './Components/Forms/LoginForm';
-import UserProfileForm from './Components/Forms/UserProfileForm';
+import ProfilePage from './Components/ProfilePage/ProfilePage';
 import NotFound from './Components/NotFound/NotFound';
 import RegisterForm from './Components/Forms/RegisterForm';
 import JobListingForm from './Components/Forms/JobListingForm';
@@ -16,6 +16,7 @@ import Home from './Components/HomePage/Home';
 import PrivateRoute from './Components/PrivateRoute';
 import Nav from './Components/Nav';
 import MatchesPage from './Components/MatchesPage/MatchesPage';
+import ProfileForm from './Components/ProfilePage/ProfileEdit';
 
 
 const pattern = Trianglify({
@@ -58,8 +59,9 @@ function App ({ checkLoggedIn }) {
           <Switch>
             <PrivateRoute path="/" exact component={Home} />
             <Route path="/login" component={Login} />
-            <PrivateRoute path="/profileform" component={UserProfileForm} />
             <Route path="/register" component={RegisterForm} />
+            <PrivateRoute path="/profile" exact component={ProfilePage} />
+            <PrivateRoute path="/profile/edit" component={ProfileForm} />
             <PrivateRoute path="/matches" component={MatchesPage} />
             <PrivateRoute path="/listings/add" component={JobListingForm} />
             <PrivateRoute path="/listings/edit/:id" component={JobListingForm} />

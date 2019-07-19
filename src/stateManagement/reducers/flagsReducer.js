@@ -23,7 +23,10 @@ import {
   JOB_MATCH_FAILURE,
   GET_MATCHES_FOR_JOBS_REQUESTED,
   GET_MATCHES_FOR_JOBS_SUCCESSFUL,
-  GET_MATCHES_FOR_JOBS_FAILURE
+  GET_MATCHES_FOR_JOBS_FAILURE,
+  GET_COMPANY_INFO_REQUESTED,
+  GET_COMPANY_INFO_SUCCESS,
+  GET_COMPANY_INFO_FAILURE
 } from '../types/types';
 
 const initalFlags = {
@@ -59,7 +62,10 @@ const initalFlags = {
   jobMatchError: null,
 
   getJobMatchesRequested: false,
-  getJobMatchesError: null
+  getJobMatchesError: null,
+
+  getCompanyInfoRequested: false,
+  getCompanyInfoError: null
 };
 
 export default (state = initalFlags, action) => {
@@ -255,6 +261,23 @@ export default (state = initalFlags, action) => {
         ...state,
         getMatchesRequested: false,
         getMatchesError: action.payload
+      };
+    case GET_COMPANY_INFO_REQUESTED:
+      return {
+        ...state,
+        getCompanyInfoRequested: true
+      };
+    case GET_COMPANY_INFO_SUCCESS:
+      return {
+        ...state,
+        getCompanyInfoRequested: false,
+        getCompanyInfoError: null
+      };
+    case GET_COMPANY_INFO_FAILURE:
+      return {
+        ...state,
+        getCompanyInfoRequested: false,
+        getCompanyInfoError: action.payload
       };
     default:
       return state;
