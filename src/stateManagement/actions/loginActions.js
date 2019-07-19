@@ -36,16 +36,19 @@ export const loginHelper = (username, password, dispatch) => {
   axios.post('https://droom-pt-bw.herokuapp.com/login', { username, password })
     .then(res => {
       console.log(res);
+      const { username, isCompany, token, id } = res.data;
       dispatch({ type: userConstants.LOGIN_SUCCESS, payload: { 
-          username: res.data.username,
-          isCompany: res.data.isCompany,
-          token: res.data.token 
+          username,
+          isCompany,
+          token,
+          id
         }
       });
       storeUser({
-        username: res.data.username,
-        isCompany: res.data.isCompany,
-        token: res.data.token
+        username,
+        isCompany,
+        token,
+        id
       });
     })
     .catch(err => {

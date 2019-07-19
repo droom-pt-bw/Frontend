@@ -11,7 +11,19 @@ import {
   EDIT_LISTING_FAILURE,
   DELETE_LISTING_REQUESTED,
   DELETE_LISTING_SUCCESSFUL,
-  DELETE_LISTING_FAILURE
+  DELETE_LISTING_FAILURE,
+  SEEKER_MATCH_REQUESTED,
+  SEEKER_MATCH_SUCCESSFUL,
+  SEEKER_MATCH_FAILURE,
+  GET_SEEKER_MATCHES_REQUESTED,
+  GET_SEEKER_MATCHES_SUCCESSFUL,
+  GET_SEEKER_MATCHES_FAILURE,
+  JOB_MATCH_REQUESTED,
+  JOB_MATCH_SUCCESSFUL,
+  JOB_MATCH_FAILURE,
+  GET_MATCHES_FOR_JOBS_REQUESTED,
+  GET_MATCHES_FOR_JOBS_SUCCESSFUL,
+  GET_MATCHES_FOR_JOBS_FAILURE
 } from '../types/types';
 
 const initalFlags = {
@@ -35,7 +47,19 @@ const initalFlags = {
   editListingError: null,
 
   deleteListingRequested: false,
-  deleteListingError: null
+  deleteListingError: null,
+
+  seekerMatchRequested: false,
+  seekerMatchError: null,
+
+  getSeekerMatchesRequested: false,
+  getSeekerMatchesError: null,
+
+  jobMatchRequested: false,
+  jobMatchError: null,
+
+  getJobMatchesRequested: false,
+  getJobMatchesError: null
 };
 
 export default (state = initalFlags, action) => {
@@ -162,6 +186,75 @@ export default (state = initalFlags, action) => {
         ...state,
         deleteListingRequested: false,
         deleteListingError: action.payload
+      };
+    case SEEKER_MATCH_REQUESTED:
+      return {
+        ...state,
+        seekerMatchRequested: true
+      };
+    case SEEKER_MATCH_SUCCESSFUL:
+      return {
+        ...state,
+        seekerMatchRequested: false,
+        seekerMatchError: null
+      };
+    case SEEKER_MATCH_FAILURE:
+      return {
+        ...state,
+        seekerMatchRequested: false,
+        seekerMAtchError: action.payload
+      };
+    case GET_SEEKER_MATCHES_REQUESTED:
+      return {
+        ...state,
+        getSeekerMatchesRequested: true
+      };
+    case GET_SEEKER_MATCHES_SUCCESSFUL:
+      return {
+        ...state,
+        getSeekerMatchesRequested: false,
+        getSeekerMatchesError: null
+      };
+    case GET_SEEKER_MATCHES_FAILURE:
+      return {
+        ...state,
+        getSeekerMatchesRequested: false,
+        getSeekerMAtchesError: action.payload
+      };
+
+    case JOB_MATCH_REQUESTED:
+      return {
+        ...state,
+        jobMatchRequested: true
+      };
+    case JOB_MATCH_SUCCESSFUL:
+      return {
+        ...state,
+        jobMatchRequested: false,
+        jobMatchError: null
+      };
+    case JOB_MATCH_FAILURE:
+      return {
+        ...state,
+        jobMatchRequested: false,
+        jobMatchError: action.payload
+      };
+    case GET_MATCHES_FOR_JOBS_REQUESTED:
+      return {
+        ...state,
+        getJobMatchesRequested: true
+      };
+    case GET_MATCHES_FOR_JOBS_SUCCESSFUL:
+      return {
+        ...state,
+        getMatchesRequested: false,
+        getMatchesErorr: null
+      };
+    case GET_MATCHES_FOR_JOBS_FAILURE:
+      return {
+        ...state,
+        getMatchesRequested: false,
+        getMatchesError: action.payload
       };
     default:
       return state;
