@@ -1,14 +1,54 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
-const CompanyProfileForm = () => {
+import { postCompanyInfo, editCompanyInfo } from '../../stateManagement/actions/companyDataActions';
+
+const CompanyProfileForm = ({ profile, postCompanyInfo, editCompanyInfo, id }) => {
   const [name, setName] = useState('');
   const [location, setLocation] = useState('');
   const [description, setDescription] = useState('');
 
+  const [submitted, setSubmitted] = useState(false);
+
+  useEffect(() => {
+    if (profile) {
+      setName(profile.name || '');
+      setLocation(profile.location || '');
+      setDescription(profile.description || '');
+      }
+  }, [profile]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if (profile) {
+      console.log('PROFILE EDIT REQUEST', profile);
+      editCompanyInfo({
+        ...profile,
+        name,
+        location,
+        description,
+        id
+      });
+    } else {
+      postCompanyInfo({
+        name,
+        location,
+        description,
+        id
+      });
+    }
+    setSubmitted(true);
   };
+
+  if (submitted) {
+    return (
+      <Redirect to="/profile" />
+    );
+  }
+
+  console.log('PROFILE', profile);
 
   return (
     <form onSubmit={handleSubmit}>
@@ -40,10 +80,11 @@ const CompanyProfileForm = () => {
   );
 };
 
-const mapStateToProps = ({ profile }) => {
+const mapStateToProps = ({ profile, currentUser }) => {
   return {
-    profile
+    profile,
+    id: currentUser.id
   };
 };
 
-export default connect(mapStateToProps)(CompanyProfileForm);
+export default connect(mapStateToProps, { postCompanyInfo, editCompanyInfo })(CompanyProfileForm);

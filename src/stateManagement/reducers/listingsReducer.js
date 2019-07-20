@@ -6,6 +6,7 @@ import {
   DELETE_LISTING_SUCCESSFUL,
   GET_MATCHES_FOR_JOBS_SUCCESSFUL
 } from "../types/types";
+import { userConstants } from '../types/registrationTypes';
 
 export default (state = {}, action) => {
   switch (action.type) {
@@ -35,6 +36,9 @@ export default (state = {}, action) => {
           matches: action.payload.matches
         }
       };
+
+    case userConstants.LOGOUT:
+      return {};
     
     default:
       return state;

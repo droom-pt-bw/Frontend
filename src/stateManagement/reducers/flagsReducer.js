@@ -26,7 +26,13 @@ import {
   GET_MATCHES_FOR_JOBS_FAILURE,
   GET_COMPANY_INFO_REQUESTED,
   GET_COMPANY_INFO_SUCCESS,
-  GET_COMPANY_INFO_FAILURE
+  GET_COMPANY_INFO_FAILURE,
+  POST_COMPANY_PROFILE_REQUESTED,
+  POST_COMPANY_PROFILE_SUCCESS,
+  POST_COMPANY_PROFILE_FAILURE,
+  EDIT_COMPANY_PROFILE_REQUESTED,
+  EDIT_COMPANY_PROFILE_SUCCESS,
+  EDIT_COMPANY_PROFILE_FAILURE
 } from '../types/types';
 
 const initalFlags = {
@@ -65,7 +71,13 @@ const initalFlags = {
   getJobMatchesError: null,
 
   getCompanyInfoRequested: false,
-  getCompanyInfoError: null
+  getCompanyInfoError: null,
+
+  addCompanyProfileRequested: false,
+  addCompanyProfileError: null,
+
+  editCompanyProfileRequested: false,
+  editCompanyProfileError: null
 };
 
 export default (state = initalFlags, action) => {
@@ -278,6 +290,40 @@ export default (state = initalFlags, action) => {
         ...state,
         getCompanyInfoRequested: false,
         getCompanyInfoError: action.payload
+      };
+    case POST_COMPANY_PROFILE_REQUESTED:
+      return {
+        ...state,
+        addCompanyProfileRequested: true
+      };
+    case POST_COMPANY_PROFILE_SUCCESS:
+      return {
+        ...state,
+        addCompanyProfileRequested: false,
+        addCompanyProfileError: null
+      };
+    case POST_COMPANY_PROFILE_FAILURE:
+      return {
+        ...state,
+        addCompanyProfileRequested: false,
+        addCompanyProfileError: action.payload
+      };
+    case EDIT_COMPANY_PROFILE_REQUESTED:
+      return {
+        ...state,
+        editCompanyProfileRequested: true
+      };
+    case EDIT_COMPANY_PROFILE_SUCCESS:
+      return {
+        ...state,
+        editCompanyProfileRequested: false,
+        editCompanyProfileError: null
+      };
+    case EDIT_COMPANY_PROFILE_FAILURE:
+      return {
+        ...state,
+        editCompanyProfileRequested: false,
+        editCompanyProfileError: action.payload
       };
     default:
       return state;
