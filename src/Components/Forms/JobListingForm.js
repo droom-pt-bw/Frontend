@@ -54,7 +54,7 @@ const JobListingForm = ({ currentUser, editListing, listing, addListing }) => {
 
   if (submitted) {
     return (
-      <Redirect to="/listings" />
+      <Redirect to="/" />
     );
   }
 

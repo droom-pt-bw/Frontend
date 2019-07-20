@@ -15,38 +15,78 @@ const RegisterForm = ({ register, currentUser }) => {
     register({ username, password, email, isCompany });
   };
 
+//   function DropDown(el) {
+//     this.dd = el;
+//     this.placeholder = this.dd.children('span');
+//     this.opts = this.dd.find('ul.dropdown > li');
+//     this.val = '';
+//     this.index = -1;
+//     this.initEvents();
+// }
+// DropDown.prototype = {
+//     initEvents : function() {
+//         var obj = this;
+
+//         obj.dd.on('click', function(event){
+//             (this).toggleClass('active');
+//             return false;
+//         });
+
+//         obj.opts.on('click',function(){
+//             var opt = (this);
+//             obj.val = opt.text();
+//             obj.index = opt.index();
+//             obj.placeholder.text(obj.val);
+//         });
+//     },
+//     getValue : function() {
+//         return this.val;
+//     },
+//     getIndex : function() {
+//         return this.index;
+//     }
+// }
+
   if (currentUser) {
     return (
       <Redirect to="/" />
     );
   }
-
   return (
-    <form onSubmit={submit}>
-      <div>register</div>
-
-      <label htmlFor="">Username</label>
+    <div className = "body">
+      <div className = "main">
+      <div className = "sign">Register Here</div>
+      <form onSubmit={submit} className = "form1">
+      
       <input 
         type="text"
+        className = "un"
+        placeholder = "UserName"
         value={username}
         onChange={e => setUsername(e.target.value)}
+
       />
 
-      <label htmlFor="">Email</label>
+      
       <input 
         type="text"
+        className = 'un'
+        placeholder = "email"
         value={email}
         onChange={e => setEmail(e.target.value)}
       />
 
-      <label htmlFor="">Password</label>
+      
       <input 
-        type="text"
+        className = "pass"
+        type = "password"
+        placeholder = "password"
         value={password}
         onChange={e => setPassword(e.target.value)}
       />
 
-      <label htmlFor="">User Type</label>
+      <h1>Select</h1>
+      <div className = "select"></div>
       <select 
         value={isCompany}
         onChange={e => setIsCompany(e.target.value)}
@@ -54,9 +94,14 @@ const RegisterForm = ({ register, currentUser }) => {
         <option value={false}>Individual</option>
         <option value={true}>Company</option>
       </select>
+
       
-      <input type="submit"/>
+      
+      <input type="submit" className = "submit" />
     </form>
+      </div>
+    </div>
+    
   )
 };
 

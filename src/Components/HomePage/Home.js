@@ -2,17 +2,15 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import { getListings } from '../../stateManagement/actions/listingsActions.js';
-import { getUsers } from '../../stateManagement/actions/usersActions';
-import JobSeekers from './JobSeekers';
 import JobListings from './JobListings';
+import Listings from '../ListingsPage/Listings';
 
-const Home = ({ getUsers, getListings, fetchingUsers, fetchingListings, currentUser }) => {
+const Home = ({ getListings, isCompany }) => {
   useEffect(() => {
-    getUsers();
     getListings();
-  }, [getUsers, getListings]);
+  }, [getListings]);
 
-  if (currentUser.isCompany === undefined) {
+  if (isCompany === undefined) {
     return (
       <p>Loading Data</p>
     );
@@ -20,21 +18,18 @@ const Home = ({ getUsers, getListings, fetchingUsers, fetchingListings, currentU
 
   return (
     <div>
-      <h1>Home</h1>
-      {currentUser.isCompany
-        ? <JobSeekers />
+      {isCompany
+        ? <Listings />
         : <JobListings />
       }
     </div>
-  )
+  );
 };
 
-const mapStateToProps = ({ fetchingUsers, fetchingListings, currentUser }) => {
+const mapStateToProps = ({ currentUser }) => {
   return {
-    fetchingUsers,
-    fetchingListings,
-    currentUser
+    isCompany: currentUser.isCompany
   };
 };
 
-export default connect(mapStateToProps, { getUsers, getListings })(Home);
+export default connect(mapStateToProps, { getListings })(Home);

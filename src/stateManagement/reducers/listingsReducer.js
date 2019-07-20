@@ -1,4 +1,12 @@
-import { LISTINGS_SUCCESS, LISTINGS_FAILURE, ADD_LISTING_SUCCESSFUL, EDIT_LISTING_SUCCESSFUL, DELETE_LISTING_SUCCESSFUL } from "../types/types";
+import { 
+  LISTINGS_SUCCESS,
+  LISTINGS_FAILURE,
+  ADD_LISTING_SUCCESSFUL,
+  EDIT_LISTING_SUCCESSFUL,
+  DELETE_LISTING_SUCCESSFUL,
+  GET_MATCHES_FOR_JOBS_SUCCESSFUL
+} from "../types/types";
+import { userConstants } from '../types/registrationTypes';
 
 export default (state = {}, action) => {
   switch (action.type) {
@@ -19,6 +27,18 @@ export default (state = {}, action) => {
     case DELETE_LISTING_SUCCESSFUL:
       const { [action.payload]: toBeDeleted, ...rest } = state;
       return rest;
+    
+    case GET_MATCHES_FOR_JOBS_SUCCESSFUL:
+      return {
+        ...state,
+        [action.payload.id]: {
+          ...state[action.payload.id],
+          matches: action.payload.matches
+        }
+      };
+
+    case userConstants.LOGOUT:
+      return {};
     
     default:
       return state;
