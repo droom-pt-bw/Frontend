@@ -29,7 +29,9 @@ export const getCompanyInfo = id => dispatch => {
 export const postCompanyInfo = (profile) => dispatch => {
   dispatch({ type: POST_COMPANY_PROFILE_REQUESTED });
 
-  axios.post(`companies`, profile)
+  console.log('postCompanyInfo', profile);
+
+  axios.post(`https://droom-pt-bw.herokuapp.com/companies`, profile)
   .then(res => {
     dispatch({
       type: POST_COMPANY_PROFILE_SUCCESS,

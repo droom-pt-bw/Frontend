@@ -1,29 +1,78 @@
 import React, { useState, useEffect} from 'react';
 import { connect } from 'react-redux';
-import { Link, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
-const UserProfile = ({submit, currentUser}) => {
+import { postSeekerInfo, editSeekerInfo } from '../../stateManagement/actions/userDataActions';
+
+const UserProfile = ({profile, id, postSeekerInfo, editSeekerInfo}) => {
 
   const [name, setName] = useState('');
   const [location, setLocation] = useState('');
   const [skills, setSkills] = useState('');
-  const [previousEmployment, setPreviousEmployment] = useState('');
+  const [description, setDesciption] = useState('');
 
-  const submitInfo = (e) => {
+  
+
+  const [ submit, setSubmit] = useState(false);
+
+
+  useEffect(() => {
+    if(profile) {
+
+      setName(profile.name || "");
+      setLocation(profile.location || "");
+      setSkills(profile.skills || "");
+      setDesciption(profile.description || "")
+    }
+  } , [profile]);
+
+  
+
+  const handleSubmit  = (e) => {
     e.preventDefault();
-    submit({name, location, skills, previousEmployment});
 
-    setName('');
-    setLocation('');
-    setSkills('');
-    setPreviousEmployment('');
+    if(Object.values(profile).length) {
+      editSeekerInfo({
+        ...profile, 
+        name, 
+        location, 
+        skills,
+        description,
+        user_id: id
+      });
+    } else {
+      postSeekerInfo({
+        name, 
+        location, 
+        skills,
+        description,
+        user_id: id
+      });
+    }
+    setSubmit(true);
   };
+
+  if(submit) {
+    return (
+      <Redirect to ="/profile" />
+    )
+  }
+  
+  // const submitInfo = (e) => {
+  //   e.preventDefault();
+  //   submit({name, location, skills, previousEmployment});
+
+  //   setName('');
+  //   setLocation('');
+  //   setSkills('');
+  //   setPreviousEmployment('');
+  // };
 
   
   
   return(
     <div>
-      <form onSubmit= {submit} className = 'form2'>
+      <form onSubmit= {handleSubmit} className = 'form2'>
 
         <label htmlFor = ''>Name</label>
         <input type="text"
@@ -53,19 +102,22 @@ const UserProfile = ({submit, currentUser}) => {
         <label htmlFor="">Previous Employment</label>
         <input 
           type="text"
-          value = {previousEmployment}
-          onChange = {e => setPreviousEmployment(e.target.value)}
+          value = {description}
+          onChange = {e => setDesciption(e.target.value)}
           placeholder = "Prev Emp"
         />
+
+        <input type = "submit" />
       </form>
     </div>
   );
 }
 
-const mapStateToProps = ({currentUser}) => {
+const mapStateToProps = ({profile, currentUser}) => {
   return{
-    currentUser
+    profile,
+    id: currentUser.id
   };
 };
 
-export default connect(mapStateToProps, {})(UserProfile);
+export default connect(mapStateToProps, {postSeekerInfo, editSeekerInfo})(UserProfile);

@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-
+import { getSeekerInfo } from '../../stateManagement/actions/userDataActions';
 
 const SeekerProfile = ({profile, id, getSeekerInfo}) => {
 
@@ -38,4 +38,4 @@ const mapStateToProps = ({ profile, currentUser }) => {
 }
 
 
-export default connect(mapStateToProps, {})(SeekerProfile);
+export default connect(mapStateToProps, { getSeekerInfo })(SeekerProfile);

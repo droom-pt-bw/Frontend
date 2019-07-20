@@ -32,7 +32,16 @@ import {
   POST_COMPANY_PROFILE_FAILURE,
   EDIT_COMPANY_PROFILE_REQUESTED,
   EDIT_COMPANY_PROFILE_SUCCESS,
-  EDIT_COMPANY_PROFILE_FAILURE
+  EDIT_COMPANY_PROFILE_FAILURE,
+  GET_SEEKER_INFO_REQUESTING,
+  GET_SEEKER_INFO_SUCCESS,
+  GET_SEEKER_INFO_FAILURE,
+  POST_SEEKER_PROFILE_REQUESTED,
+  POST_SEEKER_PROFILE_SUCCESS,
+  POST_SEEKER_PROFILE_FAILURE,
+  EDIT_SEEKER_PROFILE_REQUESTED,
+  EDIT_SEEKER_PROFILE_SUCCESS,
+  EDIT_SEEKER_PROFILE_FAILURE
 } from '../types/types';
 
 const initalFlags = {
@@ -77,7 +86,16 @@ const initalFlags = {
   addCompanyProfileError: null,
 
   editCompanyProfileRequested: false,
-  editCompanyProfileError: null
+  editCompanyProfileError: null,
+
+  getSeekerInfoRequested: false,
+  getSeekerInfoError: null,
+
+  addSeekerProfileRequested: false,
+  addSeekerProfileError: null,
+
+  editSeekerProfileRequested: false,
+  editSeekerProfileError: null
 };
 
 export default (state = initalFlags, action) => {
@@ -325,6 +343,57 @@ export default (state = initalFlags, action) => {
         editCompanyProfileRequested: false,
         editCompanyProfileError: action.payload
       };
+    case GET_SEEKER_INFO_REQUESTING:
+        return {
+          ...state,
+          getSeekerInfoRequested: true
+        };
+      case GET_SEEKER_INFO_SUCCESS:
+        return {
+          ...state,
+          getSeekerInfoRequested: false,
+          getSeekerInfoError: null
+        };
+      case GET_SEEKER_INFO_FAILURE:
+        return {
+          ...state,
+          getSeekerInfoRequested: false,
+          getSeekerInfoError: action.payload
+        };
+      case POST_SEEKER_PROFILE_REQUESTED:
+        return {
+          ...state,
+          addSeekerProfileRequested: true
+        };
+      case POST_SEEKER_PROFILE_SUCCESS:
+        return {
+          ...state,
+          addSeekerProfileRequested: false,
+          addSeekerProfileError: null
+        };
+      case POST_SEEKER_PROFILE_FAILURE:
+        return {
+          ...state,
+          addSeekerProfileRequested: false,
+          addSeekerProfileError: action.payload
+        };
+      case EDIT_SEEKER_PROFILE_REQUESTED:
+        return {
+          ...state,
+          editSeekerProfileRequested: true
+        };
+      case EDIT_SEEKER_PROFILE_SUCCESS:
+        return {
+          ...state,
+          editSeekerProfileRequested: false,
+          editSeekerProfileError: null
+        };
+      case EDIT_SEEKER_PROFILE_FAILURE:
+        return {
+          ...state,
+          editSeekerProfileRequested: false,
+          editSeekerProfileError: action.payload
+        };
     default:
       return state;
   };

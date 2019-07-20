@@ -16,7 +16,6 @@ EDIT_SEEKER_PROFILE_FAILURE
 export const getSeekerInfo = id => dispatch => {
     dispatch({ type: GET_SEEKER_INFO_REQUESTING });
 
-
     axios.get(`https://droom-pt-bw.herokuapp.com/seekers/${id}`)
     .then(res => {
         console.log(res);
@@ -26,7 +25,7 @@ export const getSeekerInfo = id => dispatch => {
         console.log(err);
         dispatch({ type: GET_SEEKER_INFO_FAILURE, payload: err });
     })
-
+}
 
     export const postSeekerInfo = (profile) => dispatch => {
         dispatch({ type: POST_SEEKER_PROFILE_REQUESTED });
@@ -44,12 +43,12 @@ export const getSeekerInfo = id => dispatch => {
                 payload: err
             });
         });
-    };
+};
 
     export const editSeekerInfo = profile => dispatch => {
         dispatch({ type: EDIT_SEEKER_PROFILE_REQUESTED });
 
-        axios.post(`companies`, profile)
+        axios.put(`https://droom-pt-bw.herokuapp.com/seekers/${profile.id}`, profile)
         .then(res => {
             dispatch({
                 type: EDIT_SEEKER_PROFILE_SUCCESS,
@@ -63,6 +62,3 @@ export const getSeekerInfo = id => dispatch => {
             });
         });
     };
-
-
-}

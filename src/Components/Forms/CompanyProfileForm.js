@@ -16,13 +16,15 @@ const CompanyProfileForm = ({ profile, postCompanyInfo, editCompanyInfo, id }) =
       setName(profile.name || '');
       setLocation(profile.location || '');
       setDescription(profile.description || '');
-      }
+    }
   }, [profile]);
+
+  
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (profile) {
+    if (Object.values(profile).length) {
       console.log('PROFILE EDIT REQUEST', profile);
       editCompanyInfo({
         ...profile,
@@ -36,7 +38,7 @@ const CompanyProfileForm = ({ profile, postCompanyInfo, editCompanyInfo, id }) =
         name,
         location,
         description,
-        id
+        user_id: id
       });
     }
     setSubmitted(true);
@@ -47,8 +49,6 @@ const CompanyProfileForm = ({ profile, postCompanyInfo, editCompanyInfo, id }) =
       <Redirect to="/profile" />
     );
   }
-
-  console.log('PROFILE', profile);
 
   return (
     <form onSubmit={handleSubmit}>
