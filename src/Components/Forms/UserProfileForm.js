@@ -4,6 +4,9 @@ import { Redirect } from 'react-router-dom';
 
 import { postSeekerInfo, editSeekerInfo } from '../../stateManagement/actions/userDataActions';
 
+import PaperBacker from '../Common/PaperBacker';
+import FormInput from '../Common/FormInput';
+
 const UserProfile = ({profile, id, postSeekerInfo, editSeekerInfo}) => {
 
   const [name, setName] = useState('');
@@ -18,7 +21,6 @@ const UserProfile = ({profile, id, postSeekerInfo, editSeekerInfo}) => {
 
   useEffect(() => {
     if(profile) {
-
       setName(profile.name || "");
       setLocation(profile.location || "");
       setSkills(profile.skills || "");
@@ -54,62 +56,49 @@ const UserProfile = ({profile, id, postSeekerInfo, editSeekerInfo}) => {
 
   if(submit) {
     return (
-      <Redirect to ="/profile" />
+      <Redirect to="/profile" />
     )
   }
   
-  // const submitInfo = (e) => {
-  //   e.preventDefault();
-  //   submit({name, location, skills, previousEmployment});
-
-  //   setName('');
-  //   setLocation('');
-  //   setSkills('');
-  //   setPreviousEmployment('');
-  // };
-
-  
-  
   return(
-    <div>
-      <form onSubmit= {handleSubmit} className = 'form2'>
-
-        <label htmlFor = ''>Name</label>
-        <input type="text"
-          value = {name}
-          onChange ={e => setName(e.target.value)}
-          placeholder = "Name"
-
+    <PaperBacker>
+      <form onSubmit={handleSubmit}>
+        <FormInput 
+          label="Name"
+          type="text"
+          fullWidth
+          value={name}
+          onChange={e => setName(e.target.value)}
+          placeholder="Name"
         /> 
-
-        <label htmlFor="">Location</label>
-        <input 
+        <FormInput
+          label="Location"
           type="text"
-          value = {location}
-          onChange = {e => setLocation(e.target.value)}
-          placeholder = "Location"
-
+          fullWidth
+          value={location}
+          onChange={e => setLocation(e.target.value)}
+          placeholder="Location"
         />
-  
-        <label htmlFor="">Skills</label>
-        <input 
+        <FormInput
+          label="Skills"
           type="text"
-          value = {skills}
+          fullWidth
+          value={skills}
           onChange={e => setSkills(e.target.value)}
-          placeholder = "Skills"
+          placeholder="Skills"
         />
-
-        <label htmlFor="">Previous Employment</label>
-        <input 
+        <FormInput
+          label="About"
           type="text"
-          value = {description}
-          onChange = {e => setDesciption(e.target.value)}
-          placeholder = "Prev Emp"
+          fullWidth
+          multiline
+          value={description}
+          onChange={e => setDesciption(e.target.value)}
+          placeholder="Prev Emp"
         />
-
-        <input type = "submit" />
+        <input type="submit" />
       </form>
-    </div>
+    </PaperBacker>
   );
 }
 

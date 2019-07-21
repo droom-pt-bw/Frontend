@@ -6,15 +6,9 @@ import CompanyProfile from './CompanyProfile';
 
 const ProfilePage = ({ isCompany }) => {
 
-  return (
-    <div>
-      <h1>ProfilePage</h1>
-      {isCompany
-        ? <CompanyProfile />
-        : <SeekerProfile />
-      }
-    </div>
-  );
+  return isCompany
+    ? <CompanyProfile />
+    : <SeekerProfile />
 };
 
 const mapStateToProps = ({ currentUser }) => {

@@ -11,7 +11,7 @@ const Bar = styled.nav`
   margin: 0;
   width: 100%;
   display: flex;
-  box-shadow: 0px 5px 10px grey;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.25);
   margin: auto;
   justify-content: space-between;
   align-items: center;
@@ -57,7 +57,9 @@ const Nav = ({ username, isCompany, logout }) => {
       <div>
         <Logo />
         <FancyLink to="/">Home</FancyLink>
-        <FancyLink to="/profile">Profile</FancyLink>
+        {username &&
+          <FancyLink to="/profile">Profile</FancyLink>
+        }
         {(username && !isCompany) &&
           <FancyLink to="/matches">Matches</FancyLink>
         }

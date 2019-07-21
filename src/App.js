@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react';
-import './App.css';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { createGlobalStyle } from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
 import Trianglify from 'trianglify';
 
 import { checkLoggedIn } from './stateManagement/actions/loginActions';
@@ -45,6 +44,11 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
+const Container = styled.div`
+  width: 100%;
+  padding: 4rem;
+`;
+
 function App ({ checkLoggedIn }) {
   useEffect(() => {
     checkLoggedIn();
@@ -53,20 +57,22 @@ function App ({ checkLoggedIn }) {
   return (
     <>
       <GlobalStyle />
-      <div className="App">
+      <div>
         <Router>
           <Nav />
-          <Switch>
-            <PrivateRoute path="/" exact component={Home} />
-            <Route path="/login" component={Login} />
-            <Route path="/register" component={RegisterForm} />
-            <PrivateRoute path="/profile" exact component={ProfilePage} />
-            <PrivateRoute path="/profile/edit" component={ProfileForm} />
-            <PrivateRoute path="/matches" component={MatchesPage} />
-            <PrivateRoute path="/listings/add" component={JobListingForm} />
-            <PrivateRoute path="/listings/edit/:id" component={JobListingForm} />
-            <Route path="*" component={NotFound} />
-          </Switch> 
+          <Container>
+            <Switch>
+              <PrivateRoute path="/" exact component={Home} />
+              <Route path="/login" component={Login} />
+              <Route path="/register" component={RegisterForm} />
+              <PrivateRoute path="/profile" exact component={ProfilePage} />
+              <PrivateRoute path="/profile/edit" component={ProfileForm} />
+              <PrivateRoute path="/matches" component={MatchesPage} />
+              <PrivateRoute path="/listings/add" component={JobListingForm} />
+              <PrivateRoute path="/listings/edit/:id" component={JobListingForm} />
+              <Route path="*" component={NotFound} />
+            </Switch>
+          </Container>
         </Router>
       </div>
     </>
