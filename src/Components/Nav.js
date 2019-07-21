@@ -4,7 +4,9 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { logout } from '../stateManagement/actions/loginActions';
+
 import logo from '../Droom-01.png';
+import Avatar from './Common/Avatar';
 
 const Bar = styled.nav`
   background: #F3EBF6;
@@ -66,7 +68,9 @@ const Nav = ({ username, isCompany, logout }) => {
       </div>
       <div>
         {username
-          ? <h3>{username}</h3>
+          ? <Avatar>
+              {username.toUpperCase()[0]}
+            </Avatar>
           : <FancyLink to="/login">Sign In</FancyLink>
         }
         {username &&
