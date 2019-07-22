@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import { getListings } from '../../stateManagement/actions/listingsActions.js';
 import JobListings from './JobListings';
-import Listings from '../ListingsPage/Listings';
+import Listings from './Listings';
 
 const Home = ({ getListings, isCompany }) => {
   useEffect(() => {
@@ -16,14 +16,9 @@ const Home = ({ getListings, isCompany }) => {
     );
   }
 
-  return (
-    <div>
-      {isCompany
+  return isCompany
         ? <Listings />
         : <JobListings />
-      }
-    </div>
-  );
 };
 
 const mapStateToProps = ({ currentUser }) => {

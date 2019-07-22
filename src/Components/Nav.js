@@ -4,14 +4,16 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { logout } from '../stateManagement/actions/loginActions';
+
 import logo from '../Droom-01.png';
+import Avatar from './Common/Avatar';
 
 const Bar = styled.nav`
   background: #F3EBF6;
   margin: 0;
   width: 100%;
   display: flex;
-  box-shadow: 0px 5px 10px grey;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.25);
   margin: auto;
   justify-content: space-between;
   align-items: center;
@@ -57,14 +59,18 @@ const Nav = ({ username, isCompany, logout }) => {
       <div>
         <Logo />
         <FancyLink to="/">Home</FancyLink>
-        <FancyLink to="/profile">Profile</FancyLink>
+        {username &&
+          <FancyLink to="/profile">Profile</FancyLink>
+        }
         {(username && !isCompany) &&
           <FancyLink to="/matches">Matches</FancyLink>
         }
       </div>
       <div>
         {username
-          ? <h3>{username}</h3>
+          ? <Avatar>
+              {username.toUpperCase()[0]}
+            </Avatar>
           : <FancyLink to="/login">Sign In</FancyLink>
         }
         {username &&
