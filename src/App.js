@@ -16,6 +16,7 @@ import PrivateRoute from './Components/PrivateRoute';
 import Nav from './Components/Nav';
 import MatchesPage from './Components/MatchesPage/MatchesPage';
 import ProfileForm from './Components/ProfilePage/ProfileEdit';
+import { StylesProvider } from '@material-ui/styles';
 
 
 const pattern = Trianglify({
@@ -55,7 +56,7 @@ function App ({ checkLoggedIn }) {
   }, [checkLoggedIn]);
 
   return (
-    <>
+    <StylesProvider injectFirst>
       <GlobalStyle />
       <div>
         <Router>
@@ -75,7 +76,7 @@ function App ({ checkLoggedIn }) {
           </Container>
         </Router>
       </div>
-    </>
+    </StylesProvider>
   );
 }
 

@@ -5,10 +5,12 @@ import { getListings } from '../../stateManagement/actions/listingsActions.js';
 import JobListings from './JobListings';
 import Listings from './Listings';
 
-const Home = ({ getListings, isCompany }) => {
+const Home = ({ getListings, isCompany, loggedIn, token }) => {
   useEffect(() => {
-    getListings();
-  }, [getListings]);
+    if (loggedIn) {
+      getListings(token);
+    }
+  }, [getListings, loggedIn, token]);
 
   if (isCompany === undefined) {
     return (
@@ -23,7 +25,9 @@ const Home = ({ getListings, isCompany }) => {
 
 const mapStateToProps = ({ currentUser }) => {
   return {
-    isCompany: currentUser.isCompany
+    isCompany: currentUser.isCompany,
+    loggedIn: Boolean(currentUser.token),
+    token: currentUser.token
   };
 };
 
