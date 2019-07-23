@@ -18,6 +18,7 @@ const Bar = styled.nav`
   justify-content: space-between;
   align-items: center;
   text-decoration: none;
+  position: fixed;
   
 
   .logo-div {
