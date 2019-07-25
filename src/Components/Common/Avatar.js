@@ -16,6 +16,8 @@ const StyledAvatar = styled.div`
 
   font-size: 1.5rem;
   color: white;
+
+  cursor: pointer;
 `;
 
 const pickColor = () => {
@@ -33,7 +35,7 @@ const pickColor = () => {
   };
 };
 
-const Avatar = (props) => {
+const Avatar = ({children, ...props}) => {
   const [pattern, setPattern] = useState(null);
 
   useEffect(() => {
@@ -49,8 +51,8 @@ const Avatar = (props) => {
 
 
   return (
-    <StyledAvatar pattern={pattern}>
-      {props.children}
+    <StyledAvatar pattern={pattern} {...props}>
+      {children}
     </StyledAvatar>
   );
 };

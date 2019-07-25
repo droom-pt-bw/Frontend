@@ -19,11 +19,15 @@ import {
   getAuthHeader
 } from './helpers';
 
-export const getListings = () => dispatch => {
+export const getListings = (token) => dispatch => {
   dispatch({ type: LISTINGS_REQUEST });
 
   axios.get('https://droom-pt-bw.herokuapp.com/listings', 
-    getAuthHeader()
+    {
+      headers: {
+        Authorization: token
+      }
+    }
   )
     .then(res => {
       dispatch({ type: LISTINGS_SUCCESS, payload: arrayToObj(res.data) });

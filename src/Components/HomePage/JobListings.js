@@ -1,10 +1,15 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faCheck  } from '@fortawesome/free-solid-svg-icons';
 
 import { matchSeekerToJob } from '../../stateManagement/actions/matchingActions';
 
 import PaperBacker from '../Common/PaperBacker';
+import Butt from '../Common/MatchButtons';
+
 
 const Section = styled.section`
   margin: 2rem 0;
@@ -58,12 +63,14 @@ const JobListings = ({ listings, fetchingListings, userId, matchSeekerToJob }) =
         <h5>Approx Salary</h5>
         <p>{listings[listingsIndex].salary}</p>
       </Section>
-      <button onClick={matchListing}>
-        Match
-      </button>
-      <button onClick={rejectListing}>
-        Reject
-      </button>
+      <Butt>
+      <div class ="Match">
+        <FontAwesomeIcon icon={faCheck} onClick={matchListing} />
+      </div>
+      <div class="Reject">
+        <FontAwesomeIcon icon={faTimes} onClick={rejectListing}/>
+      </div>
+      </Butt>
     </PaperBacker>
   );
 };

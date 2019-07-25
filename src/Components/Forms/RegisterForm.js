@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import Switch from '@material-ui/core/Switch';
 
 import { register } from '../../stateManagement/actions/registrationActions';
 
@@ -15,38 +16,6 @@ const RegisterForm = ({ register, currentUser }) => {
     register({ username, password, email, isCompany });
   };
 
-//   function DropDown(el) {
-//     this.dd = el;
-//     this.placeholder = this.dd.children('span');
-//     this.opts = this.dd.find('ul.dropdown > li');
-//     this.val = '';
-//     this.index = -1;
-//     this.initEvents();
-// }
-// DropDown.prototype = {
-//     initEvents : function() {
-//         var obj = this;
-
-//         obj.dd.on('click', function(event){
-//             (this).toggleClass('active');
-//             return false;
-//         });
-
-//         obj.opts.on('click',function(){
-//             var opt = (this);
-//             obj.val = opt.text();
-//             obj.index = opt.index();
-//             obj.placeholder.text(obj.val);
-//         });
-//     },
-//     getValue : function() {
-//         return this.val;
-//     },
-//     getIndex : function() {
-//         return this.index;
-//     }
-// }
-
   if (currentUser) {
     return (
       <Redirect to="/" />
@@ -57,17 +26,13 @@ const RegisterForm = ({ register, currentUser }) => {
       <div className = "main">
       <div className = "sign">Register Here</div>
       <form onSubmit={submit} className = "form1">
-      
       <input 
         type="text"
         className = "un"
         placeholder = "UserName"
         value={username}
         onChange={e => setUsername(e.target.value)}
-
       />
-
-      
       <input 
         type="text"
         className = 'un'
@@ -75,8 +40,6 @@ const RegisterForm = ({ register, currentUser }) => {
         value={email}
         onChange={e => setEmail(e.target.value)}
       />
-
-      
       <input 
         className = "pass"
         type = "password"
@@ -84,18 +47,11 @@ const RegisterForm = ({ register, currentUser }) => {
         value={password}
         onChange={e => setPassword(e.target.value)}
       />
-
-      <h1>Select</h1>
-      <div className = "select"></div>
-      <select 
-        value={isCompany}
-        onChange={e => setIsCompany(e.target.value)}
-      >
-        <option value={false}>Individual</option>
-        <option value={true}>Company</option>
-      </select>
-
-      
+      <div>
+        <label htmlFor="companySwitch">Individual</label>
+        <Switch checked={isCompany} onChange={() => setIsCompany(!isCompany)} id="companySwitch" />
+        <label htmlFor="companySwitch">Company</label>
+      </div>
       
       <input type="submit" className = "submit" />
     </form>
